@@ -1,0 +1,18 @@
+[user]
+    name = Yann Jorelle
+    email = yannjorelle@protonmail.com
+[core]
+    editor = nvim
+[alias]
+    c = commit
+    lg = log
+[pull]
+    ff = only
+[push]
+    default = simple
+[github]
+    user = yannjor
+[ui "color"]
+    ui = always
+[color]
+    ui = true

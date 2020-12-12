@@ -1,0 +1,65 @@
+TAG,PACKAGE NAME,DESCRIPTION
+GNOME,baobab,A graphical directory tree analyzer
+GNOME,eog,An image viewing and cataloging program
+GNOME,evince,"Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
+GNOME,file-roller,Create and modify archives
+GNOME,gdm,Display manager and login screen
+GNOME,gedit,GNOME Text Editor
+GNOME,gnome-backgrounds,Background images and data for GNOME
+GNOME,gnome-calculator,GNOME Scientific calculator
+GNOME,gnome-characters,A character map application
+GNOME,gnome-disk-utility,Disk Management Utility for GNOME
+GNOME,gnome-session,The GNOME Session Handler
+GNOME,gnome-settings-daemon,GNOME Settings Daemon
+GNOME,gnome-shell,Next generation desktop shell
+GNOME,gnome-shell-extensions,"Extensions for GNOME shell, including classic mode"
+GNOME,gnome-system-monitor,View current processes and monitor system state
+GNOME,gnome-terminal,The GNOME Terminal Emulator
+GNOME,gnome-themes-extra,Extra Themes for GNOME Applications
+GNOME,gnome-control-center,GNOME's main interface to configure various aspects of the desktop
+GNOME,mutter,A window manager for GNOME
+GNOME,nautilus,Default file manager for GNOME
+GNOME,sushi,A quick previewer for Nautilus
+GNOME,simple-scan,Simple scanning utility
+GNOME,gnome-tweaks,Graphical interface for advanced GNOME 3 settings (Tweak Tool)
+GNOME,network-manager-applet,Applet for managing network connections
+GNOME,gthumb,Image browser and viewer for the GNOME Desktop
+,geoclue,Modular geoinformation service built on the D-Bus messaging system
+,vlc,"Multi-platform MPEG, VCD/DVD, and DivX player"
+,neofetch,A CLI system information tool written in BASH that supports displaying images.
+,flameshot,Powerful yet simple to use screenshot software
+,unzip,For extracting and viewing files in .zip archives
+,htop,Interactive process viewer
+,nano,Pico editor clone with enhancements
+,neovim,"Fork of Vim aiming to improve user experience, plugins, and GUIs"
+,alacritty,"A cross-platform, GPU-accelerated terminal emulator"
+,signal-desktop,Signal Private Messenger for Linux
+,discord,All-in-one voice and text chat for gamers that's free and secure.
+,telegram-desktop,Official Telegram Desktop client
+,firefox,Standalone web browser from mozilla.org
+,libreoffice-fresh,LibreOffice branch which contains new features and program enhancements
+,bat,Cat clone with syntax highlighting and git integration
+,exa,ls replacement
+,wget,Network utility to retrieve files from the Web
+,ripgrep,A search tool that combines the usability of ag with the raw speed of grep
+,man-db,A utility for reading man pages
+AUR/GNOME,gnome-shell-extension-arch-update,Convenient indicator for Arch Linux updates in GNOME Shell.
+AUR/GNOME,gnome-shell-extension-audio-output-switcher-git,Adds a switch for choosing audio output to the system menu.
+AUR/GNOME,gnome-shell-extension-dash-to-dock,Move the dash out of the overview transforming it in a dock
+AUR/GNOME,gnome-shell-extension-gsconnect,KDE Connect implementation with GNOME Shell integration
+AUR/GNOME,gnome-shell-extension-openweather-git,A simple extension for displaying weather informations from several cities in GNOME Shell.
+AUR/GNOME,gnome-shell-extension-appindicator-git,Integrates AppIndicators into GNOME Shell
+AUR,brave-bin,Web browser that blocks ads and trackers by default (binary release).
+AUR,droidcam,A tool for using your android device as a wireless/usb webcam
+AUR,dropbox,"A free service that lets you bring your photos, docs, and videos anywhere and share them easily."
+AUR,etcher-bin,"Flash OS images to SD cards & USB drives, safely and easily"
+AUR,libreoffice-extension-grammalecte-fr,French grammar checker extension for LibreOffice.
+AUR,skypeforlinux-stable-bin,Skype for Linux - Stable/Release Version
+AUR,slack-desktop,Slack Desktop (Beta) for Linux
+AUR,spotify,A proprietary music streaming service
+AUR,tealdeer,A fast tldr client in Rust.
+AUR,teams,Microsoft Teams for Linux is your chat-centered workspace in Office 365
+AUR,tor-browser,anonymous browsing using Firefox and Tor (international PKGBUILD)
+AUR,ttf-ms-fonts,Core TTF Fonts from Microsoft
+AUR,visual-studio-code-bin,Editor for building and debugging modern web and cloud applications (official binary version)
+AUR,zoom,Video Conferencing and Web Conferencing Service
