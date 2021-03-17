@@ -1,6 +1,6 @@
 #!/bin/bash
-# Creates a user and installs packages from packages.csv
-# Enables networkmanager on startup and sets zsh as default shell
+# Creates a user and installs packages from packages.csv. Also sets zsh as
+# the default shell.
 # Quite rough script, use at own risk!
 
 
@@ -24,7 +24,7 @@ function aurinstall() {
 
 ## Install base packages
 printf "\n---Installing base packages---\n"
-for pkg in git base-devel zsh networkmanager; do
+for pkg in git base-devel zsh; do
     installpkg "$pkg"
 done
 
@@ -71,8 +71,7 @@ tail -n +2 "$package_file" | while IFS=, read -r tag pkg desc; do
     esac
 done
 
-# Enable networkmanager and gdm on startup for GNOME
-systemctl enable NetworkManager
+# Enable gdm on startup for GNOME
 [ "$gnome" != "n" ] && systemctl enable gdm.service
 
 # Make zsh the default shell
