@@ -1,15 +1,18 @@
 #!/bin/bash
-# Script that is intended to be run after chrooting into a new system. Installs 
-# systemd-boot as the boot manager. Most commands are from:
-# https://wiki.archlinux.org/index.php/Installation_guide
+# Script that is intended to be run after chrooting into a new system. Installs
+# systemd-boot as the boot manager and copies example loader configurations.
+# Most commands are from: https://wiki.archlinux.org/index.php/Installation_guide
 
-# Global variables
+### Global variables
+bootloader_path="/boot/loader"
 time_zone="Europe/Helsinki"
 locale="en_US.UTF-8 UTF-8"
 lang="LANG=en_US.UTF-8"
 
+### Start of script
 
 # Install systemd-boot
+[ -d "$bootloader_path" ] || echo "Boot loader directory not found, exiting"; exit 1
 bootctl install
 # Copy example configurations
 cp /usr/share/systemd/bootctl/loader.conf /boot/loader/

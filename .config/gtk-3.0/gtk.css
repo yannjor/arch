@@ -9,7 +9,7 @@ window.ssd headerbar.titlebar button.titlebutton {
     min-height: 0;
     min-width: 0;
 }
- 
+
 headerbar {
     min-height: 0px;
     padding-top: 2px;
@@ -17,7 +17,7 @@ headerbar {
     padding-right: 2px;
     padding-left: 2px;
 }
- 
+
 headerbar entry,
 headerbar spinbutton,
 headerbar button,
@@ -25,8 +25,7 @@ headerbar separator {
     margin-top: 1px;
     margin-bottom: 1px;
 }
- 
+
 .titlebar {
     min-height: 0px;
 }
-

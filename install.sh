@@ -1,6 +1,6 @@
 #!/bin/bash
 # Creates a user and installs packages from packages.csv. Also sets zsh as
-# the default shell.
+# the default shell for the user.
 # Quite rough script, use at own risk!
 
 
@@ -10,14 +10,12 @@ package_file="packages.csv"
 ### Functions
 function installpkg() {
     echo "Installing package: $1"
-    pacman -S --noconfirm --needed "$1" >/dev/null 2>&1 || 
-    echo "Failed to install package: $1" 
+    pacman -S --noconfirm --needed "$1" >/dev/null 2>&1 || echo "Failed to install package: $1"
 }
 
 function aurinstall() {
     echo "Installing package: $1 from AUR"
-    sudo -u "$user" yay -S --noconfirm --needed "$1" >/dev/null 2>&1 || 
-    echo "Failed to install package: $1"     
+    sudo -u "$user" yay -S --noconfirm --needed "$1" >/dev/null 2>&1 || echo "Failed to install package: $1"
 }
 
 ### Start of script

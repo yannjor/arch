@@ -1,5 +1,6 @@
 # Exports
 export ZSH="/home/yann/.oh-my-zsh"
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.bin"
 
 # Spaceship config
