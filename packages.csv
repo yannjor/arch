@@ -24,8 +24,9 @@ GNOME,simple-scan,Simple scanning utility
 GNOME,gnome-tweaks,Graphical interface for advanced GNOME 3 settings (Tweak Tool)
 GNOME,network-manager-applet,Applet for managing network connections
 GNOME,gthumb,Image browser and viewer for the GNOME Desktop
-,geoclue,Modular geoinformation service built on the D-Bus messaging system
-,vlc,"Multi-platform MPEG, VCD/DVD, and DivX player"
+GNOME,gnome-keyring,Stores passwords and encryption keys
+,mpv,"A free, open source, and cross-platform media player"
+,youtube-dl,A command-line program to download videos from YouTube.com and a few more sites
 ,neofetch,A CLI system information tool written in BASH that supports displaying images.
 ,flameshot,Powerful yet simple to use screenshot software
 ,unzip,For extracting and viewing files in .zip archives

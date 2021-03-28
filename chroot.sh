@@ -4,7 +4,7 @@
 # Most commands are from: https://wiki.archlinux.org/index.php/Installation_guide
 
 ### Global variables
-bootloader_path="/boot/loader"
+boot_path="/boot"
 time_zone="Europe/Helsinki"
 locale="en_US.UTF-8 UTF-8"
 lang="LANG=en_US.UTF-8"
@@ -12,7 +12,7 @@ lang="LANG=en_US.UTF-8"
 ### Start of script
 
 # Install systemd-boot
-[ -d "$bootloader_path" ] || echo "Boot loader directory not found, exiting"; exit 1
+[ -d "$boot_path" ] || echo "Boot directory not found, exiting"; exit 1
 bootctl install
 # Copy example configurations
 cp /usr/share/systemd/bootctl/loader.conf /boot/loader/
