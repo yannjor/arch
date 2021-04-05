@@ -3,6 +3,9 @@ export ZSH="/home/yann/.oh-my-zsh"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.bin"
 
+# Plugins
+plugins=(fast-syntax-highlighting zsh-autosuggestions)
+
 # Spaceship config
 ZSH_THEME="spaceship"
 SPACESHIP_CHAR_SUFFIX=" "
