@@ -5,7 +5,8 @@
 
 
 ### Global variables
-package_file="packages.csv"
+package_file=$(realpath "packages.csv")
+
 
 ### Functions
 function installpkg() {

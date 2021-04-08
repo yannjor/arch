@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script that is intended to be run after chrooting into a new system. Installs
-# systemd-boot as the boot manager.
+# systemd-boot as the boot manager (requires UEFI).
 # Most commands are from: https://wiki.archlinux.org/index.php/Installation_guide
 
 ### Global variables
@@ -13,7 +13,11 @@ lang="LANG=en_US.UTF-8"
 ### Start of script
 
 # Install systemd-boot
-[ -d "$boot_path" ] || echo "Boot directory not found, exiting"; exit 1
+if [ ! -d $boot_path ]; then
+    echo "Boot directory not found, exiting"
+    exit 1
+fi
+
 bootctl install
 
 # Loader configuration
@@ -26,7 +30,7 @@ editor no
 EOF
 
 # Loader entry
-root_partition_uuid=$(lsblk -dno PARTUUID "$root_partition")
+root_partition_uuid=$(lsblk -dno PARTUUID $root_partition)
 cat > /boot/loader/entries/arch.conf <<EOF
 title   Arch Linux
 linux   /vmlinuz-linux
@@ -39,13 +43,13 @@ echo "Set a new root password"
 passwd
 
 # Set time zone
-ln -sf /usr/share/zoneinfo/"$time_zone" /etc/localtime
+ln -sf /usr/share/zoneinfo/$time_zone /etc/localtime
 hwclock --systohc
 
 # Set system locale and language
 echo "$locale" >> /etc/locale.gen
 locale-gen
-echo "$lang" > /etc/locale.conf
+echo $lang > /etc/locale.conf
 
 # Install and enable network manager
 pacman -S --noconfirm --needed networkmanager

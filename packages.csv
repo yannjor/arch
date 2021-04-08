@@ -29,7 +29,6 @@ GNOME,gnome-keyring,Stores passwords and encryption keys
 ,youtube-dl,A command-line program to download videos from YouTube.com and a few more sites
 ,neofetch,A CLI system information tool written in BASH that supports displaying images.
 ,flameshot,Powerful yet simple to use screenshot software
-,unzip,For extracting and viewing files in .zip archives
 ,htop,Interactive process viewer
 ,nano,Pico editor clone with enhancements
 ,neovim,"Fork of Vim aiming to improve user experience, plugins, and GUIs"
@@ -50,17 +49,9 @@ AUR/GNOME,gnome-shell-extension-dash-to-dock,Move the dash out of the overview t
 AUR/GNOME,gnome-shell-extension-gsconnect,KDE Connect implementation with GNOME Shell integration
 AUR/GNOME,gnome-shell-extension-openweather-git,A simple extension for displaying weather informations from several cities in GNOME Shell.
 AUR/GNOME,gnome-shell-extension-appindicator-git,Integrates AppIndicators into GNOME Shell
-AUR,brave-bin,Web browser that blocks ads and trackers by default (binary release).
-AUR,droidcam,A tool for using your android device as a wireless/usb webcam
-AUR,dropbox,"A free service that lets you bring your photos, docs, and videos anywhere and share them easily."
-AUR,etcher-bin,"Flash OS images to SD cards & USB drives, safely and easily"
-AUR,libreoffice-extension-grammalecte-fr,French grammar checker extension for LibreOffice.
 AUR,skypeforlinux-stable-bin,Skype for Linux - Stable/Release Version
-AUR,slack-desktop,Slack Desktop (Beta) for Linux
-AUR,spotify,A proprietary music streaming service
 AUR,tealdeer,A fast tldr client in Rust.
 AUR,teams,Microsoft Teams for Linux is your chat-centered workspace in Office 365
-AUR,tor-browser,anonymous browsing using Firefox and Tor (international PKGBUILD)
 AUR,ttf-ms-fonts,Core TTF Fonts from Microsoft
 AUR,visual-studio-code-bin,Editor for building and debugging modern web and cloud applications (official binary version)
 AUR,zoom,Video Conferencing and Web Conferencing Service
