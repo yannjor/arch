@@ -1,18 +1,29 @@
 [user]
     name = Yann Jorelle
     email = yannjorelle@protonmail.com
+
 [core]
     editor = nvim
+    # Prettier diffs
+    pager = diff-so-fancy | less --tabs=4 -RFX
+
 [alias]
     c = commit
     lg = log
+    branches = branch -a
+    remotes = remote -v
+
 [pull]
     ff = only
+
 [push]
     default = simple
+
 [github]
     user = yannjor
+
 [ui "color"]
     ui = always
+
 [color]
     ui = true
