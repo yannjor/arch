@@ -30,7 +30,6 @@ GNOME,gnome-keyring,Stores passwords and encryption keys
 ,neofetch,A CLI system information tool written in BASH that supports displaying images.
 ,flameshot,Powerful yet simple to use screenshot software
 ,htop,Interactive process viewer
-,nano,Pico editor clone with enhancements
 ,neovim,"Fork of Vim aiming to improve user experience, plugins, and GUIs"
 ,alacritty,"A cross-platform, GPU-accelerated terminal emulator"
 ,signal-desktop,Signal Private Messenger for Linux
@@ -43,6 +42,8 @@ GNOME,gnome-keyring,Stores passwords and encryption keys
 ,wget,Network utility to retrieve files from the Web
 ,ripgrep,A search tool that combines the usability of ag with the raw speed of grep
 ,man-db,A utility for reading man pages
+,diff-so-fancy,Good-looking git diffs with diff-highlight and more
+,xclip,Command line interface to the X11 clipboard
 AUR/GNOME,gnome-shell-extension-arch-update,Convenient indicator for Arch Linux updates in GNOME Shell.
 AUR/GNOME,gnome-shell-extension-audio-output-switcher-git,Adds a switch for choosing audio output to the system menu.
 AUR/GNOME,gnome-shell-extension-dash-to-dock,Move the dash out of the overview transforming it in a dock
@@ -55,3 +56,4 @@ AUR,teams,Microsoft Teams for Linux is your chat-centered workspace in Office 36
 AUR,ttf-ms-fonts,Core TTF Fonts from Microsoft
 AUR,visual-studio-code-bin,Editor for building and debugging modern web and cloud applications (official binary version)
 AUR,zoom,Video Conferencing and Web Conferencing Service
+AUR,mpv-mpris,MPRIS (Media Player Remote Interface Spec) plugin for mpv

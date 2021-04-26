@@ -1,6 +1,7 @@
 #!/bin/bash
 # Creates a user and installs packages from packages.csv. Also sets zsh as
 # the default shell for the user.
+# Some stuff is from: https://github.com/LukeSmithxyz/LARBS
 # Quite rough script, use at own risk!
 
 
