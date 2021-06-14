@@ -78,6 +78,7 @@ set termguicolors
 
 " Colors
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 syntax enable
 
 " Leader key
@@ -131,12 +132,13 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 " COC extensions
 let g:coc_global_extensions = [
   \ 'coc-rls',
-  \ 'coc-python',
+  \ 'coc-pyright',
   \ 'coc-go',
   \ 'coc-tsserver',
   \ 'coc-eslint',
   \ 'coc-prettier',
   \ 'coc-pairs',
+  \ 'coc-yaml',
   \ ]
 
 function! s:show_documentation()
