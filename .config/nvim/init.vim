@@ -11,6 +11,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " VSCode-like completion
 Plug 'preservim/nerdtree'                       " File tree
 Plug 'Xuyuanp/nerdtree-git-plugin'              " Git integration in file tree
 Plug 'preservim/nerdcommenter'                  " Commenting
+Plug 'airblade/vim-gitgutter'                   " Git diffs in sign column
 
 " Telescope (fuzzy finder)
 Plug 'nvim-lua/popup.nvim'
@@ -18,7 +19,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 " Visual enhancements
-Plug 'itchyny/lightline.vim'                    " Status line
+Plug 'vim-airline/vim-airline'                  " Status line
 Plug 'gruvbox-community/gruvbox'                " Best colorscheme
 
 " Language support
@@ -69,10 +70,6 @@ set textwidth=80
 set listchars=eol:¬,tab:>·,trail:·,extends:>,precedes:<,space:·
 set list
 
-" Lightline
-let g:lightline = {}
-let g:lightline.colorscheme = 'gruvbox'
-
 " 24bit true color
 set termguicolors
 
@@ -80,6 +77,8 @@ set termguicolors
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 syntax enable
+" Transparency
+hi Normal guibg=NONE ctermbg=NONE
 
 " Leader key
 let mapleader = " "

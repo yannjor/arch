@@ -4,7 +4,10 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.bin"
 
 # Plugins
-plugins=(fast-syntax-highlighting zsh-autosuggestions)
+plugins=(fast-syntax-highlighting zsh-autosuggestions tmux)
+
+# tmux
+ZSH_TMUX_AUTOSTART=true
 
 # Spaceship config
 ZSH_THEME="spaceship"

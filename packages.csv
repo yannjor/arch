@@ -31,7 +31,10 @@ GNOME,gnome-keyring,Stores passwords and encryption keys
 ,flameshot,Powerful yet simple to use screenshot software
 ,htop,Interactive process viewer
 ,neovim,"Fork of Vim aiming to improve user experience, plugins, and GUIs"
+,nodejs,Evented I/O for V8 javascript
+,npm,A package manager for javascript
 ,alacritty,"A cross-platform, GPU-accelerated terminal emulator"
+,tmux,A terminal multiplexer
 ,signal-desktop,Signal Private Messenger for Linux
 ,discord,All-in-one voice and text chat for gamers that's free and secure.
 ,telegram-desktop,Official Telegram Desktop client
