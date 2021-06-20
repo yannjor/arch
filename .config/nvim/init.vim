@@ -83,6 +83,13 @@ hi Normal guibg=NONE ctermbg=NONE
 " Leader key
 let mapleader = " "
 
+" Git
+nnoremap <leader>grom :Git rebase origin/master<CR>
+nnoremap <leader>grum :Git rebase upstream/master<CR>
+nmap <leader>gj :diffget //3<CR>
+nmap <leader>gf :diffget //2<CR>
+nmap <leader>gs :G<CR>
+
 " Quick-save
 nmap <leader>w :w<CR>
 
@@ -96,7 +103,6 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>gb <cmd>Telescope git_branches<cr>
-nnoremap <leader>gs <cmd>Telescope git_status<cr>
 
 " COC configuration
 " Use <tab> for trigger completion and navigate to the next complete item
@@ -138,6 +144,7 @@ let g:coc_global_extensions = [
   \ 'coc-prettier',
   \ 'coc-pairs',
   \ 'coc-yaml',
+  \ 'coc-json',
   \ ]
 
 function! s:show_documentation()
