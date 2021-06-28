@@ -78,7 +78,7 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 syntax enable
 " Transparency
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 
 " Leader key
 let mapleader = " "

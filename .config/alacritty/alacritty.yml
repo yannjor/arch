@@ -9,19 +9,19 @@ window:
 
 font:
   normal:
-    family: Roboto Mono
+    family: Fira Code
     style: Regular
 
   bold:
-    family: Roboto Mono
+    family: Fira Code
     style: Bold
 
   italic:
-    family: Roboto Mono
+    family: Fira Code
     style: Italic
 
   bold_italic:
-    family: Roboto Mono
+    family: Fira Code
     style: Bold Italic
 
   size: 14
@@ -29,8 +29,8 @@ font:
 # Gruvbox theme:
 colors:
   primary:
-    background: '0x282828'
-    foreground: '0xdfbf8e'
+    background: '0x1d2021'
+    foreground: '0xd4be98'
 
   normal:
     black:   '0x665c54'
@@ -53,5 +53,5 @@ colors:
     white:   '0xdfbf8e'
 
 # Transparency
-background_opacity: 0.95
+background_opacity: 0.9
 
