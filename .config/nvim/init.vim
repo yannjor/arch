@@ -94,8 +94,21 @@ nmap <leader>gs :G<CR>
 nmap <leader>w :w<CR>
 
 " Quickly insert an empty new line without entering insert mode
-nnoremap <Leader>o o<Esc>
-nnoremap <Leader>O O<Esc>
+nnoremap <leader>o o<Esc>
+nnoremap <leader>O O<Esc>
+
+" Random remaps
+nnoremap Y y$
+nnoremap cn *``cgn
+nnoremap cN *``cgN
+
+" Move lines
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+nnoremap <leader>k :m .-2<CR>==
+nnoremap <leader>j :m .+1<CR>==
+inoremap <C-k> <esc>:m .-2<CR>==
+inoremap <C-j> <esc>:m .+1<CR>==
 
 " Telescope
 nnoremap <C-p> <cmd>Telescope git_files<cr>
