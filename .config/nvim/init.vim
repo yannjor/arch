@@ -24,6 +24,7 @@ Plug 'gruvbox-community/gruvbox'                " Best colorscheme
 
 " Language support
 Plug 'rust-lang/rust.vim'
+Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -178,3 +179,12 @@ let g:NERDSpaceDelims = 1
 vmap <leader>nc <plug>NERDCommenterToggle
 nmap <leader>nc <plug>NERDCommenterToggle
 
+" Vimtex
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_quickfix_mode = 0
+" Ignore default mappings, define own
+let g:vimtex_mappings_enabled = 0
+nnoremap <leader>ll :VimtexCompile<CR>
+nnoremap <leader>lv :VimtexView<CR>
+nnoremap <leader>lc :VimtexClean<CR>
+nnoremap <leader>cw :VimtexCountWords<CR>

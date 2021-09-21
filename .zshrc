@@ -23,3 +23,6 @@ alias gs="git status"
 alias gc="git clone"
 alias vim="nvim"
 alias cl="clear"
+
+# Display random pokemon :)
+pokemon-colorscripts -r 1-4

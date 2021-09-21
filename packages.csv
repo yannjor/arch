@@ -48,6 +48,8 @@ GNOME,gnome-keyring,Stores passwords and encryption keys
 ,man-db,A utility for reading man pages
 ,diff-so-fancy,Good-looking git diffs with diff-highlight and more
 ,xclip,Command line interface to the X11 clipboard
+,zathura,Minimalistic document viewer
+,zathura-pdf-poppler,Adds pdf support to zathura by using the poppler engine
 AUR/GNOME,gnome-shell-extension-arch-update,Convenient indicator for Arch Linux updates in GNOME Shell.
 AUR/GNOME,gnome-shell-extension-audio-output-switcher-git,Adds a switch for choosing audio output to the system menu.
 AUR/GNOME,gnome-shell-extension-dash-to-dock,Move the dash out of the overview transforming it in a dock
@@ -61,3 +63,4 @@ AUR,ttf-ms-fonts,Core TTF Fonts from Microsoft
 AUR,visual-studio-code-bin,Editor for building and debugging modern web and cloud applications (official binary version)
 AUR,zoom,Video Conferencing and Web Conferencing Service
 AUR,mpv-mpris,MPRIS (Media Player Remote Interface Spec) plugin for mpv
+AUR,pokemon-colorscripts-git,CLI utility that prints unicode sprites of pokemon to the terminal
