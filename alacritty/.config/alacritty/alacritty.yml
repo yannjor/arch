@@ -53,5 +53,4 @@ colors:
     white:   '0xdfbf8e'
 
 # Transparency
-background_opacity: 0.9
-
+# background_opacity: 0.9

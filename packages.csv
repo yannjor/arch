@@ -50,6 +50,8 @@ GNOME,gnome-keyring,Stores passwords and encryption keys
 ,xclip,Command line interface to the X11 clipboard
 ,zathura,Minimalistic document viewer
 ,zathura-pdf-poppler,Adds pdf support to zathura by using the poppler engine
+,hunspell-en_us,US English hunspell dictionaries
+,stow,Manage installation of multiple softwares in the same directory tree
 AUR/GNOME,gnome-shell-extension-arch-update,Convenient indicator for Arch Linux updates in GNOME Shell.
 AUR/GNOME,gnome-shell-extension-audio-output-switcher-git,Adds a switch for choosing audio output to the system menu.
 AUR/GNOME,gnome-shell-extension-dash-to-dock,Move the dash out of the overview transforming it in a dock

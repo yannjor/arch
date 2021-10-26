@@ -20,7 +20,9 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " Visual enhancements
 Plug 'vim-airline/vim-airline'                  " Status line
-Plug 'gruvbox-community/gruvbox'                " Best colorscheme
+Plug 'gruvbox-community/gruvbox'                " Colorscheme
+Plug 'sainnhe/gruvbox-material'                 " Modified gruvbox
+Plug 'sainnhe/everforest'                       " Gruvbox-like colorscheme
 
 " Language support
 Plug 'rust-lang/rust.vim'
@@ -75,8 +77,16 @@ set list
 set termguicolors
 
 " Colors
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox-material
+let g:gruvbox_material_background = 'hard'
+
+" colorscheme gruvbox
+" let g:gruvbox_contrast_dark = 'hard'
+
+" colorscheme everforest
+" set background=dark
+" let g:everforest_background = 'hard'
+
 syntax enable
 " Transparency
 " hi Normal guibg=NONE ctermbg=NONE
@@ -187,4 +197,6 @@ let g:vimtex_mappings_enabled = 0
 nnoremap <leader>ll :VimtexCompile<CR>
 nnoremap <leader>lv :VimtexView<CR>
 nnoremap <leader>lc :VimtexClean<CR>
-nnoremap <leader>cw :VimtexCountWords<CR>
+
+" Spell-check
+map <leader>s :setlocal spell! spelllang=en_us<CR>
