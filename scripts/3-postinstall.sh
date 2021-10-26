@@ -1,4 +1,5 @@
 #!/bin/bash
+# Postinstall script. Configures zsh, neovim and GNOME
 
 echo "Configuring ZSH"
 # Install oh-my-zsh

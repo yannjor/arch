@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# Lazy script to partition a drive and create filesystems. Also runs pacstrap
+# Script to partition a drive and create filesystems. Also runs pacstrap
 # and creates an fstab file.
 
 ### Global variables
@@ -30,4 +30,6 @@ pacstrap /mnt base linux linux-firmware
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
-echo "Done. You can now run 'arch-chroot /mnt' to change root into the new system."
+cp -r dotfiles /mnt/root
+
+echo "Done with preinstall"

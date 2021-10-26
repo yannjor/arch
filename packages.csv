@@ -14,7 +14,6 @@ GNOME,gnome-settings-daemon,GNOME Settings Daemon
 GNOME,gnome-shell,Next generation desktop shell
 GNOME,gnome-shell-extensions,"Extensions for GNOME shell, including classic mode"
 GNOME,gnome-system-monitor,View current processes and monitor system state
-GNOME,gnome-terminal,The GNOME Terminal Emulator
 GNOME,gnome-themes-extra,Extra Themes for GNOME Applications
 GNOME,gnome-control-center,GNOME's main interface to configure various aspects of the desktop
 GNOME,mutter,A window manager for GNOME
@@ -52,6 +51,7 @@ GNOME,gnome-keyring,Stores passwords and encryption keys
 ,zathura-pdf-poppler,Adds pdf support to zathura by using the poppler engine
 ,hunspell-en_us,US English hunspell dictionaries
 ,stow,Manage installation of multiple softwares in the same directory tree
+,tealdeer,A fast tldr client in Rust
 AUR/GNOME,gnome-shell-extension-arch-update,Convenient indicator for Arch Linux updates in GNOME Shell.
 AUR/GNOME,gnome-shell-extension-audio-output-switcher-git,Adds a switch for choosing audio output to the system menu.
 AUR/GNOME,gnome-shell-extension-dash-to-dock,Move the dash out of the overview transforming it in a dock
@@ -59,7 +59,6 @@ AUR/GNOME,gnome-shell-extension-gsconnect,KDE Connect implementation with GNOME 
 AUR/GNOME,gnome-shell-extension-openweather-git,A simple extension for displaying weather informations from several cities in GNOME Shell.
 AUR/GNOME,gnome-shell-extension-appindicator-git,Integrates AppIndicators into GNOME Shell
 AUR,skypeforlinux-stable-bin,Skype for Linux - Stable/Release Version
-AUR,tealdeer,A fast tldr client in Rust.
 AUR,teams,Microsoft Teams for Linux is your chat-centered workspace in Office 365
 AUR,ttf-ms-fonts,Core TTF Fonts from Microsoft
 AUR,visual-studio-code-bin,Editor for building and debugging modern web and cloud applications (official binary version)

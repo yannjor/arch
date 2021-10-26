@@ -67,7 +67,7 @@ set expandtab     " Spaces instead of tabs for better cross-editor compatibility
 
 " Color column at 80 characters
 set colorcolumn=80
-set textwidth=80
+" set textwidth=80
 
 " Show white space
 set listchars=eol:¬,tab:>·,trail:·,extends:>,precedes:<,space:·
