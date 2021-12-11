@@ -12,6 +12,7 @@ Plug 'preservim/nerdtree'                       " File tree
 Plug 'Xuyuanp/nerdtree-git-plugin'              " Git integration in file tree
 Plug 'preservim/nerdcommenter'                  " Commenting
 Plug 'airblade/vim-gitgutter'                   " Git diffs in sign column
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Telescope (fuzzy finder)
 Plug 'nvim-lua/popup.nvim'
@@ -25,13 +26,9 @@ Plug 'sainnhe/gruvbox-material'                 " Modified gruvbox
 Plug 'sainnhe/everforest'                       " Gruvbox-like colorscheme
 
 " Language support
-Plug 'rust-lang/rust.vim'
 Plug 'lervag/vimtex'
 
 call plug#end()
-
-" Rust
-let g:rustfmt_autosave = 1
 
 " Completion
 " Better display for messages
@@ -77,8 +74,8 @@ set list
 set termguicolors
 
 " Colors
-colorscheme gruvbox-material
 let g:gruvbox_material_background = 'hard'
+colorscheme gruvbox-material
 
 " colorscheme gruvbox
 " let g:gruvbox_contrast_dark = 'hard'
@@ -123,10 +120,16 @@ inoremap <C-j> <esc>:m .+1<CR>==
 
 " Telescope
 nnoremap <C-p> <cmd>Telescope git_files<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>gb <cmd>Telescope git_branches<cr>
+nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tg <cmd>Telescope live_grep<cr>
+nnoremap <leader>tb <cmd>Telescope buffers<cr>
+
+" Surround
+vnoremap <leader>' <esc>`>a'<esc>`<i'<esc>
+vnoremap <leader>" <esc>`>a"<esc>`<i"<esc>
+vnoremap <leader>( <esc>`>a)<esc>`<i(<esc>
+vnoremap <leader>[ <esc>`>a]<esc>`<i[<esc>
+vnoremap <leader>{ <esc>`>a}<esc>`<i{<esc>
 
 " COC configuration
 " Use <tab> for trigger completion and navigate to the next complete item
@@ -158,6 +161,9 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+" Format code
+nnoremap <leader>f :call CocAction('format')<CR>
+
 " COC extensions
 let g:coc_global_extensions = [
   \ 'coc-rls',
@@ -169,6 +175,7 @@ let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-yaml',
   \ 'coc-json',
+  \ 'coc-rust-analyzer',
   \ ]
 
 function! s:show_documentation()
@@ -199,4 +206,24 @@ nnoremap <leader>lv :VimtexView<CR>
 nnoremap <leader>lc :VimtexClean<CR>
 
 " Spell-check
-map <leader>s :setlocal spell! spelllang=en_us<CR>
+map <leader>se :setlocal spell! spelllang=en_us<CR>
+map <leader>ss :setlocal spell! spelllang=sv<CR>
+map <leader>sf :setlocal spell! spelllang=fr<CR>
+
+" Treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF

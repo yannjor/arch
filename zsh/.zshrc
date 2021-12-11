@@ -20,8 +20,13 @@ source $ZSH/oh-my-zsh.sh
 alias cat="bat"
 alias ls="exa"
 alias gs="git status"
+alias gl="git log"
 alias gc="git clone"
+alias gp="git push"
+alias gd="git diff"
+alias ga="git add -A"
 alias vim="nvim"
+alias vi="nvim"
 alias cl="clear"
 
 # Display random pokemon :)
