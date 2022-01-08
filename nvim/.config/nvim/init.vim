@@ -7,12 +7,27 @@ call plug#begin()
 
 " VIM enhancements
 Plug 'tpope/vim-fugitive'                       " Git wrapper
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " VSCode-like completion
 Plug 'preservim/nerdtree'                       " File tree
 Plug 'Xuyuanp/nerdtree-git-plugin'              " Git integration in file tree
 Plug 'preservim/nerdcommenter'                  " Commenting
 Plug 'airblade/vim-gitgutter'                   " Git diffs in sign column
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" LSP (completion)
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim' " Fancy icons for completion
+Plug 'ray-x/lsp_signature.nvim'
+
+" Only because nvim-cmp _requires_ snippets
+Plug 'hrsh7th/cmp-vsnip', {'branch': 'main'}
+Plug 'hrsh7th/vim-vsnip'
 
 " Telescope (fuzzy finder)
 Plug 'nvim-lua/popup.nvim'
@@ -20,7 +35,8 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 " Visual enhancements
-Plug 'vim-airline/vim-airline'                  " Status line
+Plug 'nvim-lualine/lualine.nvim'                " Status line
+Plug 'kyazdani42/nvim-web-devicons'             " Icons
 Plug 'gruvbox-community/gruvbox'                " Colorscheme
 Plug 'sainnhe/gruvbox-material'                 " Modified gruvbox
 Plug 'sainnhe/everforest'                       " Gruvbox-like colorscheme
@@ -30,7 +46,6 @@ Plug 'lervag/vimtex'
 
 call plug#end()
 
-" Completion
 " Better display for messages
 set cmdheight=2
 " You will have bad experience for diagnostic messages when it's default 4000.
@@ -131,62 +146,11 @@ vnoremap <leader>( <esc>`>a)<esc>`<i(<esc>
 vnoremap <leader>[ <esc>`>a]<esc>`<i[<esc>
 vnoremap <leader>{ <esc>`>a}<esc>`<i{<esc>
 
-" COC configuration
-" Use <tab> for trigger completion and navigate to the next complete item
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Format code
-nnoremap <leader>f :call CocAction('format')<CR>
-
-" COC extensions
-let g:coc_global_extensions = [
-  \ 'coc-rls',
-  \ 'coc-pyright',
-  \ 'coc-go',
-  \ 'coc-tsserver',
-  \ 'coc-eslint',
-  \ 'coc-prettier',
-  \ 'coc-pairs',
-  \ 'coc-yaml',
-  \ 'coc-json',
-  \ 'coc-rust-analyzer',
-  \ ]
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
+" Lua config
+lua << EOF
+require('lsp')
+require('plugins')
+EOF
 
 " NerdTree
 map <C-n> :NERDTreeToggle<CR>
@@ -209,21 +173,3 @@ nnoremap <leader>lc :VimtexClean<CR>
 map <leader>se :setlocal spell! spelllang=en_us<CR>
 map <leader>ss :setlocal spell! spelllang=sv<CR>
 map <leader>sf :setlocal spell! spelllang=fr<CR>
-
-" Treesitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    custom_captures = {
-      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-      ["foo.bar"] = "Identifier",
-    },
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-EOF
