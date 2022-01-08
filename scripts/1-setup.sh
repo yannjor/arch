@@ -56,7 +56,7 @@ pacman -S --noconfirm --needed networkmanager
 systemctl enable NetworkManager
 
 # Set hostname
-read -p "Enter a hostname: " host
+read -rp "Enter a hostname: " host
 echo "$host" > /etc/hostname
 
 # Set /etc/hosts configuration
