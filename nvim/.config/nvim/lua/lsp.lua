@@ -89,6 +89,9 @@ end
 
 vim.o.completeopt = "menu,menuone,noselect"
 
+local lspkind = require "lspkind"
+lspkind.init()
+
 local cmp = require('cmp')
 cmp.setup {
   snippet = {
@@ -101,14 +104,44 @@ cmp.setup {
     border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'}  -- in a clockwise order
   },
    mapping = {
-    -- Tab immediately completes. C-n/C-p to select.
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }) -- Accept currently selected item.
+     -- Accept currently selected item.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    -- Close completion menu
+    ["<C-e>"] = cmp.mapping.close(),
+    -- If you want tab completion :'(
+    --  First you have to just promise to read `:help ins-completion`.
+    ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+    ["<S-Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
   },
   sources = {
     { name = 'nvim_lsp', priority = 100 },
     { name = 'path', priority = 30, },
-    { name = 'buffer', priority = 10 },
+    { name = 'buffer', priority = 10, keyword_length = 5 },
+  },
+  formatting = {
+    -- Youtube: How to set up nice formatting for your sources.
+    -- https://youtu.be/_DnmphIwnjo?t=816
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
+        buffer = "[buf]",
+        nvim_lsp = "[LSP]",
+        path = "[path]",
+        vsnip = "[snip]",
+      },
+    },
   },
   experimental = {
     ghost_text = true
