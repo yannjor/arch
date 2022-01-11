@@ -3,6 +3,7 @@
 " =============================================================================
 " # PLUGINS
 " =============================================================================
+
 call plug#begin()
 
 " VIM enhancements
@@ -47,14 +48,21 @@ Plug 'lervag/vimtex'
 
 call plug#end()
 
+" =============================================================================
+" # Editor settings
+" =============================================================================
+
+" Lua settings
+lua << EOF
+require('lsp')
+require('plugins')
+EOF
+
 " Better display for messages
 set cmdheight=2
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 
-" =============================================================================
-" # Editor settings
-" =============================================================================
 filetype plugin indent on
 set relativenumber         " Show line numbers relative to each other
 set number                 " Show the current lines number w/ relative numbers around it
@@ -107,6 +115,17 @@ syntax enable
 " Leader key
 let mapleader = " "
 
+" Plugin settings
+let g:NERDSpaceDelims = 1
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_quickfix_mode = 0
+" Ignore default mappings, define own
+let g:vimtex_mappings_enabled = 0
+
+" =============================================================================
+" # Mappings
+" =============================================================================
+
 " Git
 nnoremap <leader>grom :Git rebase origin/master<CR>
 nnoremap <leader>grum :Git rebase upstream/master<CR>
@@ -147,25 +166,14 @@ vnoremap <leader>( <esc>`>a)<esc>`<i(<esc>
 vnoremap <leader>[ <esc>`>a]<esc>`<i[<esc>
 vnoremap <leader>{ <esc>`>a}<esc>`<i{<esc>
 
-" Lua config
-lua << EOF
-require('lsp')
-require('plugins')
-EOF
-
 " NerdTree
 map <C-n> :NERDTreeToggle<CR>
 
 " Commenter
-let g:NERDSpaceDelims = 1
 vmap <leader>nc <plug>NERDCommenterToggle
 nmap <leader>nc <plug>NERDCommenterToggle
 
 " Vimtex
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_quickfix_mode = 0
-" Ignore default mappings, define own
-let g:vimtex_mappings_enabled = 0
 nnoremap <leader>ll :VimtexCompile<CR>
 nnoremap <leader>lv :VimtexView<CR>
 nnoremap <leader>lc :VimtexClean<CR>
