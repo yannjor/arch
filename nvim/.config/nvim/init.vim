@@ -7,13 +7,15 @@
 call plug#begin()
 
 " VIM enhancements
-Plug 'tpope/vim-fugitive'                       " Git wrapper
-Plug 'preservim/nerdtree'                       " File tree
-Plug 'Xuyuanp/nerdtree-git-plugin'              " Git integration in file tree
-Plug 'preservim/nerdcommenter'                  " Commenting
-Plug 'airblade/vim-gitgutter'                   " Git diffs in sign column
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'jiangmiao/auto-pairs'
+Plug 'preservim/nerdtree'                                   " File tree
+Plug 'Xuyuanp/nerdtree-git-plugin'                          " Git integration in file tree
+Plug 'preservim/nerdcommenter'                              " Commenting
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
+Plug 'windwp/nvim-autopairs'                                " Auto pairs for brackets etc.
+
+" Git integration
+Plug 'tpope/vim-fugitive'                                   " Git wrapper
+Plug 'lewis6991/gitsigns.nvim'                              " Git diffs in sign column
 
 " LSP (completion)
 Plug 'neovim/nvim-lspconfig'
