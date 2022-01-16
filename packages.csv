@@ -66,3 +66,4 @@ AUR,zoom,Video Conferencing and Web Conferencing Service
 AUR,mpv-mpris,MPRIS (Media Player Remote Interface Spec) plugin for mpv
 AUR,pokemon-colorscripts-git,CLI utility that prints unicode sprites of pokemon to the terminal
 AUR,nerd-fonts-fira-code,Patched font Fira (Fura) Code from the nerd-fonts library
+AUR,nvim-packer-git,A use-package inspired plugin manager for Neovim.
