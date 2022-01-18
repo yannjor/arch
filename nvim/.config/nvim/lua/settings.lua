@@ -69,6 +69,9 @@ vim.opt.wildmode = "list:longest"
 vim.opt.listchars = "nbsp:¬,extends:»,precedes:«,trail:•"
 vim.opt.list = true
 
+-- Don't highlight searches
+vim.opt.hlsearch = false
+
 -- Plugin settings
 vim.g.NERDSpaceDelims = 1
 vim.g.vimtex_view_method = "zathura"

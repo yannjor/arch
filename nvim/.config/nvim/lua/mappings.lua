@@ -1,26 +1,26 @@
 -- Wrapper functions
 local nnoremap = function(lhs, rhs, silent)
-  vim.api.nvim_set_keymap("n", lhs, rhs, { noremap = true, silent = silent })
+    vim.api.nvim_set_keymap("n", lhs, rhs, { noremap = true, silent = silent })
 end
 
 local inoremap = function(lhs, rhs)
-  vim.api.nvim_set_keymap("i", lhs, rhs, { noremap = true })
+    vim.api.nvim_set_keymap("i", lhs, rhs, { noremap = true })
 end
 
 local vnoremap = function(lhs, rhs)
-  vim.api.nvim_set_keymap("v", lhs, rhs, { noremap = true })
+    vim.api.nvim_set_keymap("v", lhs, rhs, { noremap = true })
 end
 
 local nmap = function(lhs, rhs)
-  vim.api.nvim_set_keymap("n", lhs, rhs, {})
+    vim.api.nvim_set_keymap("n", lhs, rhs, {})
 end
 
 local vmap = function(lhs, rhs)
-  vim.api.nvim_set_keymap("v", lhs, rhs, {})
+    vim.api.nvim_set_keymap("v", lhs, rhs, {})
 end
 
 local map = function(lhs, rhs)
-  vim.api.nvim_set_keymap("", lhs, rhs, {})
+    vim.api.nvim_set_keymap("", lhs, rhs, {})
 end
 
 -- Quick-save
@@ -55,7 +55,7 @@ nnoremap("<leader>tb", "<cmd>Telescope buffers<cr>")
 
 --Surround
 vnoremap("<leader>'", "<esc>`>a'<esc>`<i'<esc>")
-vnoremap("<leader>\"", "<esc>`>a\"<esc>`<i\"<esc>")
+vnoremap('<leader>"', '<esc>`>a"<esc>`<i"<esc>')
 vnoremap("<leader>(", "<esc>`>a)<esc>`<i(<esc>")
 vnoremap("<leader>[", "<esc>`>a]<esc>`<i[<esc>")
 vnoremap("<leader>{", "<esc>`>a}<esc>`<i{<esc>")
@@ -74,9 +74,9 @@ map("<leader>ss", ":setlocal spell! spelllang=sv<CR>")
 map("<leader>sf", ":setlocal spell! spelllang=fr<CR>")
 
 -- Completion: Jump forward or backward in snippets
-vim.cmd [[
+vim.cmd([[
   imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
   smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
   imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
   smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-]]
+]])
