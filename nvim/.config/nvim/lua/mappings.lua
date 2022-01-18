@@ -35,6 +35,10 @@ nnoremap("Y", "y$")
 nnoremap("cn", "*``cgn")
 nnoremap("cN", "*``cgN")
 
+-- Tabs
+nnoremap("<S-l>", ":BufferNext<CR>")
+nnoremap("<S-h>", ":BufferPrevious<CR>")
+
 -- Move lines
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
@@ -56,12 +60,8 @@ vnoremap("<leader>(", "<esc>`>a)<esc>`<i(<esc>")
 vnoremap("<leader>[", "<esc>`>a]<esc>`<i[<esc>")
 vnoremap("<leader>{", "<esc>`>a}<esc>`<i{<esc>")
 
--- NerdTree
-map("<C-n>", ":NERDTreeToggle<CR>")
-
--- Commenter
-vmap("<leader>nc", "<plug>NERDCommenterToggle")
-nmap("<leader>nc", "<plug>NERDCommenterToggle")
+-- NvimTree
+map("<C-n>", ":NvimTreeToggle<CR>")
 
 --Vimtex
 nnoremap("<leader>ll", ":VimtexCompile<CR>")

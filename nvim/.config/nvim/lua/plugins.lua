@@ -2,26 +2,34 @@ require("packer").startup(function()
   -- Packer can manage itself
   use("wbthomason/packer.nvim")
 
-  -- VIM enhancements
-  use("preservim/nerdtree")
-  -- Git integration in file tree
-  use("Xuyuanp/nerdtree-git-plugin")
+  --------------------
+  -- Vim enhancements
+  --------------------
+  -- Filetree
+  use("kyazdani42/nvim-tree.lua")
   -- Commenting
-  use("preservim/nerdcommenter")
+  use("numToStr/Comment.nvim")
   -- Better syntax highlighting
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate"
   }
+  -- Tabs like any other editor
+  use("romgrk/barbar.nvim")
   -- Auto pairs for brackets etc.
   use("windwp/nvim-autopairs")
-
   -- Git wrapper
   use("tpope/vim-fugitive")
   -- Git diffs in sign column
   use("lewis6991/gitsigns.nvim")
+  -- Telescope (fuzzy finder)
+  use("nvim-lua/popup.nvim")
+  use("nvim-lua/plenary.nvim")
+  use("nvim-telescope/telescope.nvim")
 
+  --------------------
   -- LSP
+  --------------------
   use("neovim/nvim-lspconfig")
   use("williamboman/nvim-lsp-installer")
   use("nvim-lua/lsp-status.nvim")
@@ -39,19 +47,15 @@ require("packer").startup(function()
   }
   use("ray-x/lsp_signature.nvim")
 
-  -- Telescope (fuzzy finder)
-  use("nvim-lua/popup.nvim")
-  use("nvim-lua/plenary.nvim")
-  use("nvim-telescope/telescope.nvim")
-
+  --------------------
   -- Visual enhancements
+  --------------------
   -- Status line
   use("nvim-lualine/lualine.nvim")
   -- Icons
   use("kyazdani42/nvim-web-devicons")
   -- Modified gruvbox
   use("sainnhe/gruvbox-material")
-
   -- Language support
   use("lervag/vimtex")
 
@@ -62,3 +66,5 @@ require("plugins/gitsigns")
 require("plugins/lsp")
 require("plugins/treesitter")
 require("plugins/autopairs")
+require("plugins/comment")
+require("plugins/nvimtree")
