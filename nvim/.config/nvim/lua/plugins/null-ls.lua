@@ -23,6 +23,9 @@ local sources = {
         },
     }),
     null_ls.builtins.formatting.autopep8,
+    null_ls.builtins.formatting.shfmt.with({
+        extra_args = { "-i", "4", "-sr", "-ci" },
+    }),
     null_ls.builtins.formatting.stylua.with({
         extra_args = { "--indent-type", "Spaces" },
     }),

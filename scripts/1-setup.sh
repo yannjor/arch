@@ -22,7 +22,7 @@ bootctl install
 
 # Loader configuration
 # https://wiki.archlinux.org/index.php/Systemd-boot#Loader_configuration
-cat > /boot/loader/loader.conf <<EOF
+cat > /boot/loader/loader.conf << EOF
 default arch.conf
 timeout 5
 console-mode max
@@ -31,7 +31,7 @@ EOF
 
 # Loader entry
 root_partition_uuid=$(lsblk -dno PARTUUID $root_partition)
-cat > /boot/loader/entries/arch.conf <<EOF
+cat > /boot/loader/entries/arch.conf << EOF
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
@@ -60,7 +60,7 @@ read -rp "Enter a hostname: " host
 echo "$host" > /etc/hostname
 
 # Set /etc/hosts configuration
-cat > /etc/hosts <<EOF
+cat > /etc/hosts << EOF
 #
 # hosts - static table lookup for hostnames
 #

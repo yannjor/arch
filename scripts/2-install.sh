@@ -3,21 +3,19 @@
 # the default shell for the user.
 # Some stuff is from: https://github.com/LukeSmithxyz/LARBS
 
-
 ### Global variables
 package_file="/root/dotfiles/packages.csv"
 aur_helper="yay"
 
-
 ### Functions
 function installpkg() {
     echo "Installing package: $1 ($2)"
-    pacman -S --noconfirm --needed "$1" >/dev/null 2>&1 || echo "Failed to install package: $1"
+    pacman -S --noconfirm --needed "$1" > /dev/null 2>&1 || echo "Failed to install package: $1"
 }
 
 function aurinstall() {
     echo "Installing AUR package: $1 ($2)"
-    sudo -u "$user" yay -S --noconfirm --needed "$1" >/dev/null 2>&1 || echo "Failed to install package: $1"
+    sudo -u "$user" yay -S --noconfirm --needed "$1" > /dev/null 2>&1 || echo "Failed to install package: $1"
 }
 
 ### Start of script
@@ -28,7 +26,6 @@ for pkg in git base-devel zsh; do
     installpkg $pkg
 done
 
-
 ## Create user
 echo
 read -rp "Enter a username: " user
@@ -37,13 +34,11 @@ passwd "$user"
 usermod -aG wheel,audio,optical,storage,video "$user"
 sed -i '/^# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
 
-
 ## Install AUR helper
 echo -e "\n---Installing $aur_helper (AUR helper)---\n"
 sudo -u "$user" git clone https://aur.archlinux.org/$aur_helper.git
-cd $aur_helper || echo "Failed to clone AUR helper"; exit
+cd $aur_helper || exit
 sudo -u "$user" makepkg -si --noconfirm
-
 
 ## Install NVIDIA drivers if wanted
 echo
@@ -60,12 +55,12 @@ tail -n +2 "$package_file" | while IFS=, read -r tag pkg desc; do
     # Skip GNOME package if not wanted
     [[ "$tag" = *"GNOME"* && "$gnome" = "n" ]] && continue
     case "$tag" in
-    *"AUR"*)
-        aurinstall "$pkg" "$desc"
-        ;;
-    *)
-        installpkg "$pkg" "$desc"
-        ;;
+        *"AUR"*)
+            aurinstall "$pkg" "$desc"
+            ;;
+        *)
+            installpkg "$pkg" "$desc"
+            ;;
     esac
 done
 
