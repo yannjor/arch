@@ -15,10 +15,6 @@ local nmap = function(lhs, rhs)
     vim.api.nvim_set_keymap("n", lhs, rhs, {})
 end
 
-local vmap = function(lhs, rhs)
-    vim.api.nvim_set_keymap("v", lhs, rhs, {})
-end
-
 local map = function(lhs, rhs)
     vim.api.nvim_set_keymap("", lhs, rhs, {})
 end
@@ -36,8 +32,8 @@ nnoremap("cn", "*``cgn")
 nnoremap("cN", "*``cgN")
 
 -- Tabs
-nnoremap("<S-l>", ":BufferNext<CR>")
-nnoremap("<S-h>", ":BufferPrevious<CR>")
+nnoremap("<S-l>", ":BufferLineCycleNext<CR>")
+nnoremap("<S-h>", ":BufferLineCyclePrev<CR>")
 
 -- Move lines
 vnoremap("J", ":m '>+1<CR>gv=gv")

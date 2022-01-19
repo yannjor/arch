@@ -53,6 +53,32 @@ local servers = {
 -- Optional and additional LSP setup options other than (common) on_attach, capabilities, etc.
 local lsp_setup_opts = {}
 
+lsp_setup_opts["rust_analyzer"] = {
+    settings = {
+        ["rust-analyzer"] = {
+            checkOnSave = {
+                command = "clippy",
+            },
+            completion = {
+                autoimport = {
+                    enable = true,
+                },
+            },
+        },
+    },
+}
+
+lsp_setup_opts["sumneko_lua"] = {
+    settings = {
+        Lua = {
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+            },
+        },
+    },
+}
+
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     local opts = {
@@ -102,7 +128,7 @@ cmp.setup({
         end,
     },
     documentation = {
-        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },  -- in a clockwise order
+        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, -- in a clockwise order
     },
     mapping = {
         -- Accept currently selected item.

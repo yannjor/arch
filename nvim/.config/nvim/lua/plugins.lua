@@ -1,4 +1,4 @@
-require("packer").startup(function()
+require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
 
@@ -15,7 +15,7 @@ require("packer").startup(function()
         run = ":TSUpdate",
     })
     -- Tabs like any other editor
-    use("romgrk/barbar.nvim")
+    use("akinsho/bufferline.nvim")
     -- Auto pairs for brackets etc.
     use("windwp/nvim-autopairs")
     -- Git wrapper
@@ -26,6 +26,8 @@ require("packer").startup(function()
     use("nvim-lua/popup.nvim")
     use("nvim-lua/plenary.nvim")
     use("nvim-telescope/telescope.nvim")
+    -- Quickly toggle terminal while editing
+    use("akinsho/toggleterm.nvim")
 
     --------------------
     -- LSP
@@ -69,3 +71,5 @@ require("plugins/autopairs")
 require("plugins/comment")
 require("plugins/nvimtree")
 require("plugins/null-ls")
+require("plugins/toggleterm")
+require("plugins/bufferline")
