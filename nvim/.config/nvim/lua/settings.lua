@@ -2,11 +2,11 @@
 vim.g.mapleader = " "
 
 -- Color scheme
-vim.cmd [[
+vim.cmd([[
   syntax enable
   colorscheme gruvbox-material
   let g:gruvbox_material_background = 'hard'
-]]
+]])
 
 -- Do not wrap long lines
 vim.opt.wrap = false
@@ -33,7 +33,7 @@ vim.opt.splitright = true
 
 -- Tabs as 4 spaces
 vim.opt.tabstop = 4
-vim.opt.softtabstop=4
+vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
 vim.opt.expandtab = true
@@ -54,9 +54,6 @@ vim.opt.signcolumn = "yes"
 
 -- Indicate that a dark background should be used
 vim.opt.background = "dark"
-
--- Always use system clipboard
-vim.opt.clipboard = "unnamedplus"
 
 -- Enable colors in the terminal UI
 vim.opt.termguicolors = true

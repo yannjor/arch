@@ -26,6 +26,15 @@ nmap("<leader>w", ":w<CR>")
 nnoremap("<Leader>o", "o<Esc>")
 nnoremap("<Leader>O", "O<Esc>")
 
+-- Copy-paste
+nnoremap("<leader>p", '"+p')
+vnoremap("<leader>p", '"+p')
+nnoremap("<leader>P", '"+P')
+vnoremap("<leader>P", '"+P')
+nnoremap("<leader>y", '"+y')
+vnoremap("<leader>y", '"+y')
+nnoremap("<leader>Y", '"+y$')
+
 -- Random remaps
 nnoremap("Y", "y$")
 nnoremap("cn", "*``cgn")
@@ -34,6 +43,12 @@ nnoremap("cN", "*``cgN")
 -- Tabs
 nnoremap("<S-l>", ":BufferLineCycleNext<CR>")
 nnoremap("<S-h>", ":BufferLineCyclePrev<CR>")
+
+-- Window navigation
+nnoremap("<C-h>", "<C-w>h")
+nnoremap("<C-j>", "<C-w>j")
+nnoremap("<C-k>", "<C-w>k")
+nnoremap("<C-l>", "<C-w>l")
 
 -- Move lines
 vnoremap("J", ":m '>+1<CR>gv=gv")

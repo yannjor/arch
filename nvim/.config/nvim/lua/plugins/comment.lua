@@ -2,9 +2,9 @@ require("Comment").setup({
     -- LHS of operator-pending mapping in NORMAL + VISUAL mode
     opleader = {
         -- line-comment keymap
-        line = "gc",
+        line = "<leader>n",
         -- block-comment keymap
-        block = "gb",
+        block = "<leader>b",
     },
 
     -- Create basic (operator-pending) and extended mappings for NORMAL + VISUAL mode
@@ -30,11 +30,11 @@ require("Comment").setup({
     toggler = {
         -- line-comment keymap
         --  Makes sense to be related to your opleader.line
-        line = "gcc",
+        line = "<leader>nc",
 
         -- block-comment keymap
         --  Make sense to be related to your opleader.block
-        block = "gbc",
+        block = "<leader>bb",
     },
 
     -- Pre-hook, called before commenting the line
