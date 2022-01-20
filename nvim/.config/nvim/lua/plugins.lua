@@ -2,9 +2,9 @@ require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
 
-    --------------------
+    -------------------------
     -- Vim enhancements
-    --------------------
+    -------------------------
     -- Filetree
     use("kyazdani42/nvim-tree.lua")
     -- Commenting
@@ -29,9 +29,9 @@ require("packer").startup(function(use)
     -- Quickly toggle terminal while editing
     use("akinsho/toggleterm.nvim")
 
-    --------------------
-    -- LSP
-    --------------------
+    -------------------------
+    -- LSP & Completion
+    -------------------------
     use("neovim/nvim-lspconfig")
     use("williamboman/nvim-lsp-installer")
     use("nvim-lua/lsp-status.nvim")
@@ -49,10 +49,24 @@ require("packer").startup(function(use)
     })
     use("ray-x/lsp_signature.nvim")
     use("jose-elias-alvarez/null-ls.nvim")
+    use({
+        "tzachar/cmp-tabnine",
+        config = function()
+            local tabnine = require("cmp_tabnine.config")
+            tabnine:setup({
+                max_lines = 1000,
+                max_num_results = 20,
+                sort = true,
+            })
+        end,
+        run = "./install.sh",
+    })
+    -- Extra snippets
+    use("rafamadriz/friendly-snippets")
 
-    --------------------
+    -------------------------
     -- Visual enhancements
-    --------------------
+    -------------------------
     -- Status line
     use("nvim-lualine/lualine.nvim")
     -- Icons
@@ -66,6 +80,7 @@ end)
 require("plugins/lualine")
 require("plugins/gitsigns")
 require("plugins/lsp")
+require("plugins/completion")
 require("plugins/treesitter")
 require("plugins/autopairs")
 require("plugins/comment")
