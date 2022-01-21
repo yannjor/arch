@@ -73,6 +73,10 @@ require("packer").startup(function(use)
     use("kyazdani42/nvim-web-devicons")
     -- Modified gruvbox
     use("sainnhe/gruvbox-material")
+    -- if gruvbox and tokyonight had a baby
+    use("rebelot/kanagawa.nvim")
+    -- Github theme
+    use("projekt0n/github-nvim-theme")
     -- Language support
     use("lervag/vimtex")
 end)
@@ -88,3 +92,4 @@ require("plugins/nvimtree")
 require("plugins/null-ls")
 require("plugins/toggleterm")
 require("plugins/bufferline")
+require("plugins/colorscheme")

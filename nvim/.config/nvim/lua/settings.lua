@@ -1,12 +1,8 @@
 -- Use space as leader key
 vim.g.mapleader = " "
 
--- Color scheme
-vim.cmd([[
-  syntax enable
-  colorscheme gruvbox-material
-  let g:gruvbox_material_background = 'hard'
-]])
+-- Enable syntax highlighting
+vim.opt.syntax = "enable"
 
 -- Do not wrap long lines
 vim.opt.wrap = false
