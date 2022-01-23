@@ -7,7 +7,7 @@
 -- Kanagawa
 require("kanagawa").setup({
     colors = {
-        sumiInk1 = "black",
+        sumiInk1 = "#1c1c1c",
     },
 })
 vim.cmd("colorscheme kanagawa")

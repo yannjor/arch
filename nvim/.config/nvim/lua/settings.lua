@@ -69,6 +69,9 @@ vim.opt.hlsearch = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vimdid"
 vim.opt.undofile = true
 
+-- Don't continue comments when using o/O
+vim.opt.formatoptions:remove("o")
+
 -- Plugin settings
 vim.g.NERDSpaceDelims = 1
 vim.g.vimtex_view_method = "zathura"
