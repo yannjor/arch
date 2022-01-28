@@ -34,7 +34,6 @@ require("packer").startup(function(use)
     -------------------------
     use("neovim/nvim-lspconfig")
     use("williamboman/nvim-lsp-installer")
-    use("nvim-lua/lsp-status.nvim")
     use("nvim-lua/lsp_extensions.nvim")
     use("onsails/lspkind-nvim")
     use("hrsh7th/cmp-nvim-lsp")
@@ -69,6 +68,8 @@ require("packer").startup(function(use)
     -------------------------
     -- Status line
     use("nvim-lualine/lualine.nvim")
+    -- Standalone UI for nvim-lsp progress
+    use("j-hui/fidget.nvim")
     -- Icons
     use("kyazdani42/nvim-web-devicons")
     -- Modified gruvbox
@@ -81,6 +82,7 @@ require("packer").startup(function(use)
     use("lervag/vimtex")
 end)
 
+-- Configuration and setup of plugins
 require("plugins/lualine")
 require("plugins/gitsigns")
 require("plugins/lsp")
@@ -93,3 +95,4 @@ require("plugins/null-ls")
 require("plugins/toggleterm")
 require("plugins/bufferline")
 require("plugins/colorscheme")
+require("plugins/fidget")

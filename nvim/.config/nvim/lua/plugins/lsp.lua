@@ -1,9 +1,6 @@
 -------------
 -- LSP config
 -------------
-
-local nvim_lsp = require("lspconfig")
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -35,6 +32,11 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+    -- Disable formatting for tsserver and html - use prettier instead
+    if client.name == "tsserver" or client.name == "html" then
+        client.resolved_capabilities.document_formatting = false
+    end
 end
 
 -- Language servers
@@ -48,6 +50,7 @@ local servers = {
     "dockerls",
     "cssls",
     "html",
+    "sumneko_lua",
 }
 
 -- Optional and additional LSP setup options other than (common) on_attach, capabilities, etc.

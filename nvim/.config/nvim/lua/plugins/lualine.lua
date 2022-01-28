@@ -3,7 +3,4 @@ require("lualine").setup({
         theme = "gruvbox_dark",
         -- icons_enabled = false,
     },
-    sections = {
-        lualine_c = { "LspStatus()" },
-    },
 })
