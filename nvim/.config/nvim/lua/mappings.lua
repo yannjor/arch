@@ -55,21 +55,21 @@ vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
 nnoremap("<leader>k", ":m .-2<CR>==")
 nnoremap("<leader>j", ":m .+1<CR>==")
-inoremap("<C-k>", "<esc>:m .-2<CR>==")
-inoremap("<C-j>", "<esc>:m .+1<CR>==")
+inoremap("<C-k>", "<Esc>:m .-2<CR>==")
+inoremap("<C-j>", "<Esc>:m .+1<CR>==")
 
 -- Telescope
-nnoremap("<C-p>", "<cmd>Telescope git_files<cr>")
-nnoremap("<leader>tf", "<cmd>Telescope find_files<cr>")
-nnoremap("<leader>tg", "<cmd>Telescope live_grep<cr>")
-nnoremap("<leader>tb", "<cmd>Telescope buffers<cr>")
+nnoremap("<C-p>", "<cmd>Telescope git_files<CR>")
+nnoremap("<leader>tf", "<cmd>Telescope find_files<CR>")
+nnoremap("<leader>tg", "<cmd>Telescope live_grep<CR>")
+nnoremap("<leader>tb", "<cmd>Telescope buffers<CR>")
 
 --Surround
-vnoremap("<leader>'", "<esc>`>a'<esc>`<i'<esc>")
-vnoremap('<leader>"', '<esc>`>a"<esc>`<i"<esc>')
-vnoremap("<leader>(", "<esc>`>a)<esc>`<i(<esc>")
-vnoremap("<leader>[", "<esc>`>a]<esc>`<i[<esc>")
-vnoremap("<leader>{", "<esc>`>a}<esc>`<i{<esc>")
+vnoremap("<leader>'", "<Esc>`>a'<Esc>`<i'<Esc>")
+vnoremap('<leader>"', '<Esc>`>a"<Esc>`<i"<Esc>')
+vnoremap("<leader>(", "<Esc>`>a)<Esc>`<i(<Esc>")
+vnoremap("<leader>[", "<Esc>`>a]<Esc>`<i[<Esc>")
+vnoremap("<leader>{", "<Esc>`>a}<Esc>`<i{<Esc>")
 
 -- NvimTree
 map("<C-n>", ":NvimTreeToggle<CR>")
@@ -78,6 +78,13 @@ map("<C-n>", ":NvimTreeToggle<CR>")
 nnoremap("<leader>ll", ":VimtexCompile<CR>")
 nnoremap("<leader>lv", ":VimtexView<CR>")
 nnoremap("<leader>lc", ":VimtexClean<CR>")
+
+-- Neogit & Diffview
+nnoremap("<leader>gg", ":Neogit<CR>")
+nnoremap("<leader>gl", ":Neogit log<CR>")
+nnoremap("<leader>gp", ":Neogit push<CR>")
+nnoremap("<leader>gd", ":DiffviewOpen<CR>")
+nnoremap("<leader>gD", ":DiffviewOpen main<CR>")
 
 -- Spell-check
 map("<leader>se", ":setlocal spell! spelllang=en_us<CR>")

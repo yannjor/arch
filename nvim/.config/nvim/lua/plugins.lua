@@ -18,8 +18,6 @@ require("packer").startup(function(use)
     use("akinsho/bufferline.nvim")
     -- Auto pairs for brackets etc.
     use("windwp/nvim-autopairs")
-    -- Git wrapper
-    use("tpope/vim-fugitive")
     -- Git diffs in sign column
     use("lewis6991/gitsigns.nvim")
     -- Telescope (fuzzy finder)
@@ -28,6 +26,9 @@ require("packer").startup(function(use)
     use("nvim-telescope/telescope.nvim")
     -- Quickly toggle terminal while editing
     use("akinsho/toggleterm.nvim")
+    -- Git UI
+    use("TimUntersberger/neogit")
+    use("sindrets/diffview.nvim")
 
     -------------------------
     -- LSP & Completion
@@ -96,3 +97,4 @@ require("plugins/toggleterm")
 require("plugins/bufferline")
 require("plugins/colorscheme")
 require("plugins/fidget")
+require("plugins/neogit")

@@ -45,6 +45,9 @@ vim.opt.relativenumber = true
 -- Show column
 vim.opt.colorcolumn = "100"
 
+-- Wrap at 100
+vim.opt.textwidth = 100
+
 -- Prevent buffer moving when adding/deleting sign.
 vim.opt.signcolumn = "yes"
 
