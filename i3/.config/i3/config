@@ -153,6 +153,9 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym XF86MonBrightnessUp exec brightnessctl -q set +5%
 bindsym XF86MonBrightnessDown exec brightnessctl -q set 5%-
 
+# screenshot
+bindsym $mod+Shift+s exec flameshot gui
+
 # gaps
 gaps inner 5
 gaps outer 5
@@ -185,6 +188,5 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # autostart
-exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
-exec --no-startup-id redshift-gtk
+exec --no-startup-id feh --randomize --bg-fill $HOME/Pictures/wallpapers/*
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
