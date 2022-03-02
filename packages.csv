@@ -1,29 +1,4 @@
 TAG,PACKAGE NAME,DESCRIPTION
-GNOME,baobab,A graphical directory tree analyzer
-GNOME,eog,An image viewing and cataloging program
-GNOME,evince,"Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
-GNOME,file-roller,Create and modify archives
-GNOME,gdm,Display manager and login screen
-GNOME,gedit,GNOME Text Editor
-GNOME,gnome-backgrounds,Background images and data for GNOME
-GNOME,gnome-calculator,GNOME Scientific calculator
-GNOME,gnome-characters,A character map application
-GNOME,gnome-disk-utility,Disk Management Utility for GNOME
-GNOME,gnome-session,The GNOME Session Handler
-GNOME,gnome-settings-daemon,GNOME Settings Daemon
-GNOME,gnome-shell,Next generation desktop shell
-GNOME,gnome-shell-extensions,"Extensions for GNOME shell, including classic mode"
-GNOME,gnome-system-monitor,View current processes and monitor system state
-GNOME,gnome-themes-extra,Extra Themes for GNOME Applications
-GNOME,gnome-control-center,GNOME's main interface to configure various aspects of the desktop
-GNOME,mutter,A window manager for GNOME
-GNOME,nautilus,Default file manager for GNOME
-GNOME,sushi,A quick previewer for Nautilus
-GNOME,simple-scan,Simple scanning utility
-GNOME,gnome-tweaks,Graphical interface for advanced GNOME 3 settings (Tweak Tool)
-GNOME,network-manager-applet,Applet for managing network connections
-GNOME,gthumb,Image browser and viewer for the GNOME Desktop
-GNOME,gnome-keyring,Stores passwords and encryption keys
 ,mpv,"A free, open source, and cross-platform media player"
 ,youtube-dl,A command-line program to download videos from YouTube.com and a few more sites
 ,neofetch,A CLI system information tool written in BASH that supports displaying images.
@@ -52,12 +27,6 @@ GNOME,gnome-keyring,Stores passwords and encryption keys
 ,hunspell-en_us,US English hunspell dictionaries
 ,stow,Manage installation of multiple softwares in the same directory tree
 ,tealdeer,A fast tldr client in Rust
-AUR/GNOME,gnome-shell-extension-arch-update,Convenient indicator for Arch Linux updates in GNOME Shell.
-AUR/GNOME,gnome-shell-extension-audio-output-switcher-git,Adds a switch for choosing audio output to the system menu.
-AUR/GNOME,gnome-shell-extension-dash-to-dock,Move the dash out of the overview transforming it in a dock
-AUR/GNOME,gnome-shell-extension-gsconnect,KDE Connect implementation with GNOME Shell integration
-AUR/GNOME,gnome-shell-extension-openweather-git,A simple extension for displaying weather informations from several cities in GNOME Shell.
-AUR/GNOME,gnome-shell-extension-appindicator-git,Integrates AppIndicators into GNOME Shell
 AUR,skypeforlinux-stable-bin,Skype for Linux - Stable/Release Version
 AUR,teams,Microsoft Teams for Linux is your chat-centered workspace in Office 365
 AUR,ttf-ms-fonts,Core TTF Fonts from Microsoft
@@ -67,3 +36,43 @@ AUR,mpv-mpris,MPRIS (Media Player Remote Interface Spec) plugin for mpv
 AUR,pokemon-colorscripts-git,CLI utility that prints unicode sprites of pokemon to the terminal
 AUR,nerd-fonts-fira-code,Patched font Fira (Fura) Code from the nerd-fonts library
 AUR,nvim-packer-git,A use-package inspired plugin manager for Neovim.
+i3,i3-gaps,"A fork of i3wm tiling window manager with more features, including gaps"
+i3,i3lock,Improved screenlocker based upon XCB and PAM
+i3,rofi,"A window switcher, application launcher and dmenu replacement"
+i3,playerctl,"mpris media player controller and lib for spotify, vlc, audacious, bmp, xmms2, and others."
+i3,feh,Fast and light imlib2-based image viewer
+i3,brightnessctl,Lightweight brightness control tool
+i3,redshift,Adjusts the color temperature of your screen according to your surroundings.
+i3,jq,Command-line JSON processor
+i3/AUR,polybar,A fast and easy-to-use status bar
+GNOME,baobab,A graphical directory tree analyzer
+GNOME,eog,An image viewing and cataloging program
+GNOME,evince,"Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
+GNOME,file-roller,Create and modify archives
+GNOME,gdm,Display manager and login screen
+GNOME,gedit,GNOME Text Editor
+GNOME,gnome-backgrounds,Background images and data for GNOME
+GNOME,gnome-calculator,GNOME Scientific calculator
+GNOME,gnome-characters,A character map application
+GNOME,gnome-disk-utility,Disk Management Utility for GNOME
+GNOME,gnome-session,The GNOME Session Handler
+GNOME,gnome-settings-daemon,GNOME Settings Daemon
+GNOME,gnome-shell,Next generation desktop shell
+GNOME,gnome-shell-extensions,"Extensions for GNOME shell, including classic mode"
+GNOME,gnome-system-monitor,View current processes and monitor system state
+GNOME,gnome-themes-extra,Extra Themes for GNOME Applications
+GNOME,gnome-control-center,GNOME's main interface to configure various aspects of the desktop
+GNOME,mutter,A window manager for GNOME
+GNOME,nautilus,Default file manager for GNOME
+GNOME,sushi,A quick previewer for Nautilus
+GNOME,simple-scan,Simple scanning utility
+GNOME,gnome-tweaks,Graphical interface for advanced GNOME 3 settings (Tweak Tool)
+GNOME,network-manager-applet,Applet for managing network connections
+GNOME,gthumb,Image browser and viewer for the GNOME Desktop
+GNOME,gnome-keyring,Stores passwords and encryption keys
+GNOME/AUR,gnome-shell-extension-arch-update,Convenient indicator for Arch Linux updates in GNOME Shell.
+GNOME/AUR,gnome-shell-extension-audio-output-switcher-git,Adds a switch for choosing audio output to the system menu.
+GNOME/AUR,gnome-shell-extension-dash-to-dock,Move the dash out of the overview transforming it in a dock
+GNOME/AUR,gnome-shell-extension-gsconnect,KDE Connect implementation with GNOME Shell integration
+GNOME/AUR,gnome-shell-extension-openweather-git,A simple extension for displaying weather informations from several cities in GNOME Shell.
+GNOME/AUR,gnome-shell-extension-appindicator-git,Integrates AppIndicators into GNOME Shell

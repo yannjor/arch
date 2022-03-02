@@ -48,12 +48,16 @@ echo
 
 ## Install packages
 echo -e "\n---Installing packages from $package_file---\n"
+
 read -rp "Install GNOME? [y/n] " -s -n1 gnome
+echo
+read -rp "Install i3 WM? [y/n] " -s -n1 i3
 echo
 # Read csv, skip first line
 tail -n +2 "$package_file" | while IFS=, read -r tag pkg desc; do
-    # Skip GNOME package if not wanted
+    # Skip GNOME/i3 packages if not wanted
     [[ "$tag" = *"GNOME"* && "$gnome" = "n" ]] && continue
+    [[ "$tag" = *"i3"* && "$i3" = "n" ]] && continue
     case "$tag" in
         *"AUR"*)
             aurinstall "$pkg" "$desc"
