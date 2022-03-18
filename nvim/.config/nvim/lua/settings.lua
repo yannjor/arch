@@ -68,6 +68,12 @@ vim.opt.list = true
 -- Don't highlight searches
 vim.opt.hlsearch = false
 
+-- Ignore case when searching
+vim.opt.ignorecase = true
+
+-- Case sensitive search if uppercase
+vim.opt.smartcase = true
+
 -- Permanent undo
 vim.opt.undodir = os.getenv("HOME") .. "/.vimdid"
 vim.opt.undofile = true
