@@ -30,6 +30,7 @@ require("packer").startup(function(use)
     use("TimUntersberger/neogit")
     use("sindrets/diffview.nvim")
 
+    use("dylon/vim-antlr")
     -------------------------
     -- LSP & Completion
     -------------------------
@@ -40,27 +41,11 @@ require("packer").startup(function(use)
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-buffer")
     use("hrsh7th/cmp-path")
-    use({
-        "hrsh7th/nvim-cmp",
-        requires = {
-            "hrsh7th/cmp-vsnip",
-            "hrsh7th/vim-vsnip",
-        },
-    })
+    use("hrsh7th/nvim-cmp")
+    use("L3MON4D3/LuaSnip")
+    use("saadparwaiz1/cmp_luasnip")
     use("ray-x/lsp_signature.nvim")
     use("jose-elias-alvarez/null-ls.nvim")
-    use({
-        "tzachar/cmp-tabnine",
-        config = function()
-            local tabnine = require("cmp_tabnine.config")
-            tabnine:setup({
-                max_lines = 1000,
-                max_num_results = 20,
-                sort = true,
-            })
-        end,
-        run = "./install.sh",
-    })
     -- Extra snippets
     use("rafamadriz/friendly-snippets")
 
@@ -79,22 +64,25 @@ require("packer").startup(function(use)
     use("rebelot/kanagawa.nvim")
     -- Github theme
     use("projekt0n/github-nvim-theme")
+    -- Nightfox theme
+    use("EdenEast/nightfox.nvim")
     -- Language support
     use("lervag/vimtex")
 end)
 
 -- Configuration and setup of plugins
-require("plugins/lualine")
-require("plugins/gitsigns")
-require("plugins/lsp")
-require("plugins/completion")
-require("plugins/treesitter")
 require("plugins/autopairs")
-require("plugins/comment")
-require("plugins/nvimtree")
-require("plugins/null-ls")
-require("plugins/toggleterm")
 require("plugins/bufferline")
 require("plugins/colorscheme")
+require("plugins/comment")
+require("plugins/completion")
 require("plugins/fidget")
+require("plugins/gitsigns")
+require("plugins/lsp")
+require("plugins/lualine")
+require("plugins/luasnip")
 require("plugins/neogit")
+require("plugins/null-ls")
+require("plugins/nvimtree")
+require("plugins/toggleterm")
+require("plugins/treesitter")

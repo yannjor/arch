@@ -62,7 +62,14 @@ vim.opt.wildmenu = true
 vim.opt.wildmode = "list:longest"
 
 -- Show whitespace characters
-vim.opt.listchars = "nbsp:¬,extends:»,precedes:«,trail:•"
+vim.opt.listchars = {
+    space = "⋅",
+    tab = "__",
+    trail = "•",
+    extends = "❯",
+    precedes = "❮",
+    nbsp = "_",
+}
 vim.opt.list = true
 
 -- Don't highlight searches

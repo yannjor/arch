@@ -90,11 +90,3 @@ nnoremap("<leader>gD", ":DiffviewOpen main<CR>")
 map("<leader>se", ":setlocal spell! spelllang=en_us<CR>")
 map("<leader>ss", ":setlocal spell! spelllang=sv<CR>")
 map("<leader>sf", ":setlocal spell! spelllang=fr<CR>")
-
--- Completion: Jump forward or backward in snippets
-vim.cmd([[
-  imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-]])
