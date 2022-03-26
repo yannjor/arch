@@ -89,7 +89,6 @@ vim.opt.undofile = true
 vim.opt.formatoptions:remove("o")
 
 -- Plugin settings
-vim.g.NERDSpaceDelims = 1
 vim.g.vimtex_view_method = "zathura"
 vim.g.vimtex_quickfix_mode = 0
 -- Ignore default mappings, define own

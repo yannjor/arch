@@ -82,6 +82,16 @@ lsp_setup_opts["sumneko_lua"] = {
     },
 }
 
+lsp_setup_opts["pyright"] = {
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "off",
+            },
+        },
+    },
+}
+
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     local opts = {

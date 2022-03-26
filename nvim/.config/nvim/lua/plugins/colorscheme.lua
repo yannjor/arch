@@ -16,3 +16,7 @@ vim.cmd("colorscheme kanagawa")
 -- require("github-theme").setup({
 --     theme_style = "dark_default",
 -- })
+
+-- Nightfox
+-- require("nightfox").setup({})
+-- vim.cmd("colorscheme duskfox")

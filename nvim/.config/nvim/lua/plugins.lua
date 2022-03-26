@@ -1,7 +1,6 @@
 require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
-
     -------------------------
     -- Vim enhancements
     -------------------------
@@ -29,7 +28,8 @@ require("packer").startup(function(use)
     -- Git UI
     use("TimUntersberger/neogit")
     use("sindrets/diffview.nvim")
-
+    -- Language support
+    use("lervag/vimtex")
     use("dylon/vim-antlr")
     -------------------------
     -- LSP & Completion
@@ -66,8 +66,6 @@ require("packer").startup(function(use)
     use("projekt0n/github-nvim-theme")
     -- Nightfox theme
     use("EdenEast/nightfox.nvim")
-    -- Language support
-    use("lervag/vimtex")
 end)
 
 -- Configuration and setup of plugins
