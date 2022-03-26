@@ -1,26 +1,8 @@
-# Exports
-export ZSH="/home/yann/.oh-my-zsh"
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$HOME/.bin"
-# Default programs
-export EDITOR="nvim"
-export TERMINAL="alacritty"
-export BROWSER="firefox"
-
-# File manager icons
-LF_ICONS=$(sed ~/.config/lf/icons  \
-            -e '/^[ \t]*#/d'       \
-            -e '/^[ \t]*$/d'       \
-            -e 's/[ \t]\+/=/g'     \
-            -e 's/$/ /')
-LF_ICONS=${LF_ICONS//$'\n'/:}
-export LF_ICONS
-
 # Plugins
 plugins=(fast-syntax-highlighting zsh-autosuggestions tmux)
 
 # tmux
-ZSH_TMUX_AUTOSTART=true
+# ZSH_TMUX_AUTOSTART=true
 
 # Spaceship config
 ZSH_THEME="spaceship"
