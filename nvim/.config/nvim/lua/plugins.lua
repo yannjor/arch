@@ -2,7 +2,7 @@ require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
     -------------------------
-    -- Vim enhancements
+    -- General enhancements
     -------------------------
     -- Filetree
     use("kyazdani42/nvim-tree.lua")
@@ -50,7 +50,7 @@ require("packer").startup(function(use)
     use("rafamadriz/friendly-snippets")
 
     -------------------------
-    -- Visual enhancements
+    -- Visual enhancements & themes
     -------------------------
     -- Status line
     use("nvim-lualine/lualine.nvim")
@@ -58,6 +58,8 @@ require("packer").startup(function(use)
     use("j-hui/fidget.nvim")
     -- Icons
     use("kyazdani42/nvim-web-devicons")
+    -- Gruvbox
+    use("morhetz/gruvbox")
     -- Modified gruvbox
     use("sainnhe/gruvbox-material")
     -- if gruvbox and tokyonight had a baby
@@ -66,6 +68,10 @@ require("packer").startup(function(use)
     use("projekt0n/github-nvim-theme")
     -- Nightfox theme
     use("EdenEast/nightfox.nvim")
+    -- Vscode theme
+    use("Mofiqul/vscode.nvim")
+    -- Material theme
+    use("marko-cerovac/material.nvim")
 end)
 
 -- Configuration and setup of plugins

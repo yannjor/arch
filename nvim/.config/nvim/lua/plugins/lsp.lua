@@ -7,6 +7,7 @@ local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
+
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
@@ -33,25 +34,25 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
-    -- Disable formatting for tsserver and html - use prettier instead
-    if client.name == "tsserver" or client.name == "html" then
-        client.resolved_capabilities.document_formatting = false
+    local disable_formatting = {
+        "hls",
+        "html",
+        "jsonls",
+        "sumneko_lua",
+        "tsserver",
+    }
+    -- Disable formatting for certain LSPs, use null-ls instead
+    for _, c in pairs(disable_formatting) do
+        if client.name == c then
+            client.resolved_capabilities.document_formatting = false
+        end
     end
 end
 
--- Language servers
-local servers = {
-    "pyright",
-    "rust_analyzer",
-    "tsserver",
-    "bashls",
-    "jsonls",
-    "yamlls",
-    "dockerls",
-    "cssls",
-    "html",
-    "sumneko_lua",
-}
+-- Attach hls separately
+require("lspconfig").hls.setup({
+    on_attach = on_attach,
+})
 
 -- Optional and additional LSP setup options other than (common) on_attach, capabilities, etc.
 local lsp_setup_opts = {}
@@ -109,6 +110,18 @@ lsp_installer.on_server_ready(function(server)
     vim.cmd([[ do User LspAttachBuffers ]])
 end)
 
+local servers = {
+    "pyright",
+    "rust_analyzer",
+    "tsserver",
+    "bashls",
+    "jsonls",
+    "yamlls",
+    "dockerls",
+    "cssls",
+    "html",
+    "sumneko_lua",
+}
 -- Automatically install if a required LSP server is missing.
 for _, lsp_name in ipairs(servers) do
     local ok, lsp = require("nvim-lsp-installer.servers").get_server(lsp_name)
