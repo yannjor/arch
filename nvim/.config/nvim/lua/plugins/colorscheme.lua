@@ -39,3 +39,10 @@ vim.cmd([[
 --     let g:material_style = "darker"
 --     colorscheme material
 -- ]])
+
+-- Catppuccin
+-- require("catppuccin").setup({})
+-- vim.cmd([[
+--     colorscheme catppuccin
+-- ]])
+

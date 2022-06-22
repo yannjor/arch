@@ -1,6 +1,8 @@
 -------------
 -- LSP config
 -------------
+local navic = require("nvim-navic")
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -47,6 +49,7 @@ local on_attach = function(client, bufnr)
             client.resolved_capabilities.document_formatting = false
         end
     end
+    navic.attach(client, bufnr)
 end
 
 -- Attach hls separately
@@ -109,27 +112,3 @@ lsp_installer.on_server_ready(function(server)
     server:setup(opts)
     vim.cmd([[ do User LspAttachBuffers ]])
 end)
-
-local servers = {
-    "pyright",
-    "rust_analyzer",
-    "tsserver",
-    "bashls",
-    "jsonls",
-    "yamlls",
-    "dockerls",
-    "cssls",
-    "html",
-    "sumneko_lua",
-}
--- Automatically install if a required LSP server is missing.
-for _, lsp_name in ipairs(servers) do
-    local ok, lsp = require("nvim-lsp-installer.servers").get_server(lsp_name)
-
-    if ok and not lsp:is_installed() then
-        vim.defer_fn(function()
-            -- install with a UI so users can be notified
-            lsp_installer.install(lsp_name)
-        end, 0)
-    end
-end

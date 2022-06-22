@@ -56,6 +56,8 @@ require("packer").startup(function(use)
     use("nvim-lualine/lualine.nvim")
     -- Standalone UI for nvim-lsp progress
     use("j-hui/fidget.nvim")
+    -- Show current code context
+    use("SmiteshP/nvim-navic")
     -- Icons
     use("kyazdani42/nvim-web-devicons")
     -- Gruvbox
@@ -72,6 +74,8 @@ require("packer").startup(function(use)
     use("Mofiqul/vscode.nvim")
     -- Material theme
     use("marko-cerovac/material.nvim")
+    -- Catppuccin
+    use({ "catppuccin/nvim", as = "catppuccin" })
 end)
 
 -- Configuration and setup of plugins
