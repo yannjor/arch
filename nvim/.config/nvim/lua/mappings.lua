@@ -1,77 +1,65 @@
--- Wrapper functions
-local nnoremap = function(lhs, rhs, silent)
-    vim.api.nvim_set_keymap("n", lhs, rhs, { noremap = true, silent = silent })
-end
-
-local vnoremap = function(lhs, rhs)
-    vim.api.nvim_set_keymap("v", lhs, rhs, { noremap = true })
-end
-
-local nmap = function(lhs, rhs)
-    vim.api.nvim_set_keymap("n", lhs, rhs, {})
-end
-
-local map = function(lhs, rhs)
-    vim.api.nvim_set_keymap("", lhs, rhs, {})
-end
+-- Shorten function name
+local keymap = vim.keymap.set
+-- Silent keymap option
+local opts = { silent = true }
 
 -- Standard operations
-nmap("<leader>w", ":w<CR>")
-nmap("<leader>q", ":q<CR>")
-nmap("<leader>c", ":bdelete!<CR>")
+keymap("n", "<leader>w", ":w<CR>", opts)
+keymap("n", "<leader>q", ":q<CR>", opts)
+keymap("n", "<leader>c", ":bdelete!<CR>", opts)
 
 -- Quickly insert an empty new line without entering insert mode
-nnoremap("<Leader>o", "o<Esc>")
-nnoremap("<Leader>O", "O<Esc>")
+keymap("n", "<Leader>o", "o<Esc>", opts)
+keymap("n", "<Leader>O", "O<Esc>", opts)
 
 -- Copy-paste
-nnoremap("<leader>p", '"+p')
-vnoremap("<leader>p", '"+p')
-nnoremap("<leader>P", '"+P')
-vnoremap("<leader>P", '"+P')
-nnoremap("<leader>y", '"+y')
-vnoremap("<leader>y", '"+y')
-nnoremap("<leader>Y", '"+y$')
+keymap("n", "<leader>p", '"+p', opts)
+keymap("v", "<leader>p", '"+p', opts)
+keymap("n", "<leader>P", '"+P', opts)
+keymap("v", "<leader>P", '"+P', opts)
+keymap("n", "<leader>y", '"+y', opts)
+keymap("v", "<leader>y", '"+y', opts)
+keymap("n", "<leader>Y", '"+y$', opts)
 
 -- Tabs
-nnoremap("<S-l>", ":BufferLineCycleNext<CR>")
-nnoremap("<S-h>", ":BufferLineCyclePrev<CR>")
+keymap("n", "<S-l>", ":BufferLineCycleNext<CR>", opts)
+keymap("n", "<S-h>", ":BufferLineCyclePrev<CR>", opts)
 
 -- Window navigation
-nnoremap("<C-h>", "<C-w>h")
-nnoremap("<C-j>", "<C-w>j")
-nnoremap("<C-k>", "<C-w>k")
-nnoremap("<C-l>", "<C-w>l")
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Telescope
-nnoremap("<C-p>", "<cmd>Telescope git_files<CR>")
-nnoremap("<leader>tf", "<cmd>Telescope find_files<CR>")
-nnoremap("<leader>tg", "<cmd>Telescope live_grep<CR>")
-nnoremap("<leader>tb", "<cmd>Telescope buffers<CR>")
+keymap("n", "<C-p>", "<cmd>Telescope git_files<CR>", opts)
+keymap("n", "<leader>tf", "<cmd>Telescope find_files<CR>", opts)
+keymap("n", "<leader>tg", "<cmd>Telescope live_grep<CR>", opts)
+keymap("n", "<leader>tb", "<cmd>Telescope buffers<CR>", opts)
 
 --Surround
-vnoremap("<leader>'", "<Esc>`>a'<Esc>`<i'<Esc>")
-vnoremap('<leader>"', '<Esc>`>a"<Esc>`<i"<Esc>')
-vnoremap("<leader>(", "<Esc>`>a)<Esc>`<i(<Esc>")
-vnoremap("<leader>[", "<Esc>`>a]<Esc>`<i[<Esc>")
-vnoremap("<leader>{", "<Esc>`>a}<Esc>`<i{<Esc>")
+keymap("v", "<leader>'", "<Esc>`>a'<Esc>`<i'<Esc>", opts)
+keymap("v", '<leader>"', '<Esc>`>a"<Esc>`<i"<Esc>', opts)
+keymap("v", "<leader>(", "<Esc>`>a,opts)<Esc>`<i(<Esc>")
+keymap("v", "<leader>[", "<Esc>`>a]<Esc>`<i[<Esc>", opts)
+keymap("v", "<leader>{", "<Esc>`>a}<Esc>`<i{<Esc>", opts)
 
 -- NvimTree
-map("<C-n>", ":NvimTreeToggle<CR>")
+keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
 
 --Vimtex
-nnoremap("<leader>ll", ":VimtexCompile<CR>")
-nnoremap("<leader>lv", ":VimtexView<CR>")
-nnoremap("<leader>lc", ":VimtexClean<CR>")
+keymap("n", "<leader>ll", ":VimtexCompile<CR>", opts)
+keymap("n", "<leader>lv", ":VimtexView<CR>", opts)
+keymap("n", "<leader>lc", ":VimtexClean<CR>", opts)
 
 -- Neogit & Diffview
-nnoremap("<leader>gg", ":Neogit<CR>")
-nnoremap("<leader>gl", ":Neogit log<CR>")
-nnoremap("<leader>gp", ":Neogit push<CR>")
-nnoremap("<leader>gd", ":DiffviewOpen<CR>")
-nnoremap("<leader>gD", ":DiffviewOpen main<CR>")
+keymap("n", "<leader>gg", ":Neogit<CR>", opts)
+keymap("n", "<leader>gl", ":Neogit log<CR>", opts)
+keymap("n", "<leader>gp", ":Neogit push<CR>", opts)
+keymap("n", "<leader>gd", ":DiffviewOpen<CR>", opts)
+keymap("n", "<leader>gD", ":DiffviewOpen main<CR>", opts)
 
 -- Spell-check
-map("<leader>se", ":setlocal spell! spelllang=en_us<CR>")
-map("<leader>ss", ":setlocal spell! spelllang=sv<CR>")
-map("<leader>sf", ":setlocal spell! spelllang=fr<CR>")
+keymap("n", "<leader>se", ":setlocal spell! spelllang=en_us<CR>", opts)
+keymap("n", "<leader>ss", ":setlocal spell! spelllang=sv<CR>", opts)
+keymap("n", "<leader>sf", ":setlocal spell! spelllang=fr<CR>", opts)
