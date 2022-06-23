@@ -39,7 +39,7 @@ source $ZSH/oh-my-zsh.sh
 
 # ALIASES
 alias cat="bat"
-alias ls="exa"
+alias ls="exa --icons"
 alias gs="git status"
 alias gl="git log"
 alias gc="git clone"
@@ -48,8 +48,11 @@ alias gd="git diff"
 alias ga="git add -A"
 alias vim="nvim"
 alias vi="nvim"
+alias v="nvim"
 alias cl="clear"
 alias lf="~/.config/lf/lfub.sh"
+alias pc="pokemon-colorscripts"
+alias cal="cal -m"
 
 # Display random pokemon :)
-pokemon-colorscripts -r 1-4
+krabby random -i 1-5 --no-gmax
