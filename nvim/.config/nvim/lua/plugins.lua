@@ -39,7 +39,6 @@ require("packer").startup(function(use)
     use("sindrets/diffview.nvim")
     -- Language support
     use("lervag/vimtex")
-    use("dylon/vim-antlr")
     -- Faster startup
     use("lewis6991/impatient.nvim")
     -------------------------
@@ -108,7 +107,7 @@ require("plugins.autopairs")
 require("plugins.bufferline")
 require("plugins.colorscheme")
 require("plugins.comment")
-require("plugins.completion")
+require("plugins.cmp")
 require("plugins.fidget")
 require("plugins.gitsigns")
 require("plugins.lsp")
