@@ -45,7 +45,8 @@ require("packer").startup(function(use)
     -- LSP & Completion
     -------------------------
     use("neovim/nvim-lspconfig")
-    use("williamboman/nvim-lsp-installer")
+    use("williamboman/mason.nvim")
+    use("williamboman/mason-lspconfig.nvim")
     use("nvim-lua/lsp_extensions.nvim")
     use("onsails/lspkind-nvim")
     use("hrsh7th/cmp-nvim-lsp")
@@ -68,6 +69,13 @@ require("packer").startup(function(use)
     use("j-hui/fidget.nvim")
     -- Show current code context
     use("SmiteshP/nvim-navic")
+    -- Diagnostic lines
+    use({
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("lsp_lines").setup()
+        end,
+    })
     -- Icons
     use("kyazdani42/nvim-web-devicons")
     -- Gruvbox
@@ -105,71 +113,74 @@ end
 -- Settings
 -------------------------------------------------
 
+local o = vim.opt
+local g = vim.g
+
 -- Use space as leader key
-vim.g.mapleader = " "
+g.mapleader = " "
 
 -- Enable syntax highlighting
-vim.opt.syntax = "enable"
+o.syntax = "enable"
 
 -- Do not wrap long lines
-vim.opt.wrap = false
+o.wrap = false
 
 -- Allow hidden buffers
-vim.opt.hidden = true
+o.hidden = true
 
 -- Use utf-8
-vim.opt.encoding = "utf-8"
-vim.opt.fileencoding = "utf-8"
+o.encoding = "utf-8"
+o.fileencoding = "utf-8"
 
 -- Better display for messages
-vim.opt.cmdheight = 2
+o.cmdheight = 2
 
 -- Faster diagnostic messages
-vim.opt.updatetime = 300
+o.updatetime = 300
 
 -- Enable mouse usage (all modes) in terminals
-vim.opt.mouse = "a"
+o.mouse = "a"
 
 -- Sane splits
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+o.splitbelow = true
+o.splitright = true
 
 -- Tabs as 4 spaces
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.smarttab = true
-vim.opt.expandtab = true
+o.tabstop = 4
+o.softtabstop = 4
+o.shiftwidth = 4
+o.smarttab = true
+o.expandtab = true
 
 -- Auto indent
-vim.opt.smartindent = true
-vim.opt.autoindent = true
+o.smartindent = true
+o.autoindent = true
 
 -- Show line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+o.number = true
+o.relativenumber = true
 
 -- Show column
-vim.opt.colorcolumn = "100"
+o.colorcolumn = "100"
 
 -- Wrap at 100
-vim.opt.textwidth = 100
+o.textwidth = 100
 
 -- Prevent buffer moving when adding/deleting sign.
-vim.opt.signcolumn = "yes"
+o.signcolumn = "yes"
 
 -- Indicate that a dark background should be used
-vim.opt.background = "dark"
+o.background = "dark"
 
 -- Enable colors in the terminal UI
-vim.opt.termguicolors = true
+o.termguicolors = true
 
 -- Decent wildmenu
-vim.opt.wildmenu = true
-vim.opt.wildmode = "list:longest"
+o.wildmenu = true
+o.wildmode = "list:longest"
 
 -- Show whitespace characters
-vim.opt.listchars = {
+o.listchars = {
     space = "⋅",
     tab = "__",
     trail = "•",
@@ -177,29 +188,29 @@ vim.opt.listchars = {
     precedes = "❮",
     nbsp = "_",
 }
-vim.opt.list = true
+o.list = true
 
 -- Don't highlight searches
-vim.opt.hlsearch = false
+o.hlsearch = false
 
 -- Ignore case when searching
-vim.opt.ignorecase = true
+o.ignorecase = true
 
 -- Case sensitive search if uppercase
-vim.opt.smartcase = true
+o.smartcase = true
 
 -- Permanent undo
-vim.opt.undodir = os.getenv("HOME") .. "/.vimdid"
-vim.opt.undofile = true
+o.undodir = os.getenv("HOME") .. "/.vimdid"
+o.undofile = true
 
 -- Don't continue comments when using o/O
-vim.opt.formatoptions:remove("o")
+o.formatoptions:remove("o")
 
 -- Plugin settings
-vim.g.vimtex_view_method = "zathura"
-vim.g.vimtex_quickfix_mode = 0
+g.vimtex_view_method = "zathura"
+g.vimtex_quickfix_mode = 0
 -- Ignore default mappings, define own
-vim.g.vimtex_mappings_enabled = 0
+g.vimtex_mappings_enabled = 0
 
 -------------------------------------------------
 -- Keymaps
@@ -393,7 +404,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", lsp_keymap_opts)
     buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", lsp_keymap_opts)
     buf_set_keymap("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", lsp_keymap_opts)
+    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", lsp_keymap_opts)
 
     local disable_formatting = {
         "hls",
@@ -405,69 +416,67 @@ local on_attach = function(client, bufnr)
     -- Disable formatting for certain LSPs, use null-ls instead
     for _, c in pairs(disable_formatting) do
         if client.name == c then
-            client.resolved_capabilities.document_formatting = false
+            client.server_capabilities.document_formatting = false
         end
     end
     navic.attach(client, bufnr)
 end
 
--- Attach hls separately
-require("lspconfig").hls.setup({
-    on_attach = on_attach,
-})
-
 -- Optional and additional LSP setup options other than (common) on_attach, capabilities, etc.
 local lsp_setup_opts = {}
 
 lsp_setup_opts["rust_analyzer"] = {
-    settings = {
-        ["rust-analyzer"] = {
-            checkOnSave = {
-                command = "clippy",
-            },
-            completion = {
-                autoimport = {
-                    enable = true,
-                },
+    ["rust-analyzer"] = {
+        checkOnSave = {
+            command = "clippy",
+        },
+        completion = {
+            autoimport = {
+                enable = true,
             },
         },
     },
 }
 
 lsp_setup_opts["sumneko_lua"] = {
-    settings = {
-        Lua = {
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { "vim" },
-            },
+    Lua = {
+        diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim" },
         },
     },
 }
 
 lsp_setup_opts["pyright"] = {
-    settings = {
-        python = {
-            analysis = {
-                typeCheckingMode = "off",
-            },
+    python = {
+        analysis = {
+            typeCheckingMode = "off",
         },
     },
 }
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-    local lsp_installer_opts = {
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+for server, settings in pairs(lsp_setup_opts) do
+    require("lspconfig")[server].setup({
         on_attach = on_attach,
-        -- Suggested configuration by nvim-cmp
-        capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-    }
-    -- Customize the options passed to the server
-    lsp_installer_opts = vim.tbl_extend("error", lsp_installer_opts, lsp_setup_opts[server.name] or {})
-    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-    server:setup(lsp_installer_opts)
-    vim.cmd([[ do User LspAttachBuffers ]])
-end)
+        capabilities = capabilities,
+        settings = settings,
+    })
+end
+
+-- Attach hls separately
+require("lspconfig").hls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+require("mason").setup({})
+require("mason-lspconfig").setup({
+    ensure_installed = { "sumneko_lua", "pyright", "rust_analyzer" },
+})
+
+require("lsp_lines").setup({})
+keymap("", "<Leader>L", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
 
 require("nvim-autopairs").setup({
     check_ts = true, -- treesitter integration
@@ -488,15 +497,15 @@ require("bufferline").setup({
     },
 })
 
-require("catppuccin").setup({})
+-- Gruvbox
 vim.cmd([[
-    colorscheme catppuccin
+  let g:gruvbox_material_background = 'hard'
+  colorscheme gruvbox-material
 ]])
 
--- Gruvbox
+-- require("catppuccin").setup({})
 -- vim.cmd([[
---   let g:gruvbox_contrast_dark = 'hard'
---   colorscheme gruvbox
+--     colorscheme catppuccin
 -- ]])
 
 require("Comment").setup({})
@@ -515,8 +524,8 @@ require("gitsigns").setup({
 
 require("lualine").setup({
     options = {
-        -- theme = "gruvbox_dark",
-        theme = "catppuccin",
+        theme = "gruvbox-material",
+        -- theme = "catppuccin",
         icons_enabled = true,
     },
     sections = {
