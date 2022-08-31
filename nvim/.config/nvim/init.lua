@@ -67,15 +67,6 @@ require("packer").startup(function(use)
     use("nvim-lualine/lualine.nvim")
     -- Standalone UI for nvim-lsp progress
     use("j-hui/fidget.nvim")
-    -- Show current code context
-    use("SmiteshP/nvim-navic")
-    -- Diagnostic lines
-    use({
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-            require("lsp_lines").setup()
-        end,
-    })
     -- Icons
     use("kyazdani42/nvim-web-devicons")
     -- Gruvbox
@@ -363,8 +354,6 @@ cmp.setup({
     },
 })
 
-local navic = require("nvim-navic")
-
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -419,7 +408,6 @@ local on_attach = function(client, bufnr)
             client.server_capabilities.document_formatting = false
         end
     end
-    navic.attach(client, bufnr)
 end
 
 -- Optional and additional LSP setup options other than (common) on_attach, capabilities, etc.
@@ -464,8 +452,11 @@ for server, settings in pairs(lsp_setup_opts) do
     })
 end
 
--- Attach hls separately
 require("lspconfig").hls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+require("lspconfig").tsserver.setup({
     on_attach = on_attach,
     capabilities = capabilities,
 })
@@ -474,9 +465,6 @@ require("mason").setup({})
 require("mason-lspconfig").setup({
     ensure_installed = { "sumneko_lua", "pyright", "rust_analyzer" },
 })
-
-require("lsp_lines").setup({})
-keymap("", "<Leader>L", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
 
 require("nvim-autopairs").setup({
     check_ts = true, -- treesitter integration
@@ -528,11 +516,6 @@ require("lualine").setup({
         -- theme = "catppuccin",
         icons_enabled = true,
     },
-    sections = {
-        lualine_c = {
-            { navic.get_location, cond = navic.is_available },
-        },
-    },
 })
 
 local ls = require("luasnip")
@@ -569,7 +552,10 @@ local sources = {
     --     diagnostics_format = "[#{c}] #{m} (#{s})",
     -- }),
 
-    -- Formatting formatting.prettier,
+    -- Formatting
+    formatting.prettier.with({
+        extra_args = { "--tab-width", "2" },
+    }),
     formatting.autopep8,
     formatting.shfmt.with({
         extra_args = { "-i", "4", "-sr", "-ci" },
