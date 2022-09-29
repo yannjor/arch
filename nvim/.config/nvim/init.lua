@@ -152,10 +152,10 @@ o.number = true
 o.relativenumber = true
 
 -- Show column
-o.colorcolumn = "100"
+o.colorcolumn = "80"
 
--- Wrap at 100
-o.textwidth = 100
+-- Wrap at 80
+o.textwidth = 80
 
 -- Prevent buffer moving when adding/deleting sign.
 o.signcolumn = "yes"
@@ -456,7 +456,15 @@ require("lspconfig").hls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
 })
+require("lspconfig").cssls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
 require("lspconfig").tsserver.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+require("lspconfig").clangd.setup({
     on_attach = on_attach,
     capabilities = capabilities,
 })
