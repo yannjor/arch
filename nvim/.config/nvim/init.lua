@@ -124,7 +124,7 @@ o.encoding = "utf-8"
 o.fileencoding = "utf-8"
 
 -- Better display for messages
-o.cmdheight = 2
+o.cmdheight = 1
 
 -- Faster diagnostic messages
 o.updatetime = 300
