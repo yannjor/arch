@@ -64,7 +64,7 @@ require("packer").startup(function(use)
     -- Visual enhancements & themes
     -------------------------
     -- Status line
-    use("nvim-lualine/lualine.nvim")
+    use("feline-nvim/feline.nvim")
     -- Standalone UI for nvim-lsp progress
     use("j-hui/fidget.nvim")
     -- Icons
@@ -518,11 +518,21 @@ require("gitsigns").setup({
     },
 })
 
-require("lualine").setup({
-    options = {
-        theme = "gruvbox-material",
-        -- theme = "catppuccin",
-        icons_enabled = true,
+require("feline").setup({
+    theme = {
+        bg = "#282828",
+        black = "#282828",
+        yellow = "#d8a657",
+        cyan = "#89b482",
+        oceanblue = "#45707a",
+        green = "#a9b665",
+        orange = "#e78a4e",
+        violet = "#d3869b",
+        magenta = "#c14a4a",
+        white = "#ebdbb2",
+        fg = "#d4be98",
+        skyblue = "#7daea3",
+        red = "#ea6962",
     },
 })
 
