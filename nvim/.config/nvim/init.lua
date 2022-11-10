@@ -64,7 +64,7 @@ require("packer").startup(function(use)
     -- Visual enhancements & themes
     -------------------------
     -- Status line
-    use("feline-nvim/feline.nvim")
+    use("nvim-lualine/lualine.nvim")
     -- Standalone UI for nvim-lsp progress
     use("j-hui/fidget.nvim")
     -- Icons
@@ -443,7 +443,7 @@ lsp_setup_opts["pyright"] = {
     },
 }
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 for server, settings in pairs(lsp_setup_opts) do
     require("lspconfig")[server].setup({
         on_attach = on_attach,
@@ -518,24 +518,15 @@ require("gitsigns").setup({
     },
 })
 
-require("feline").setup({
-    theme = {
-        bg = "#282828",
-        black = "#282828",
-        yellow = "#d8a657",
-        cyan = "#89b482",
-        oceanblue = "#45707a",
-        green = "#a9b665",
-        orange = "#e78a4e",
-        violet = "#d3869b",
-        magenta = "#c14a4a",
-        white = "#ebdbb2",
-        fg = "#d4be98",
-        skyblue = "#7daea3",
-        red = "#ea6962",
+require("lualine").setup({
+    options = {
+        theme = "gruvbox-material",
+        -- theme = "catppuccin",
+        icons_enabled = true,
+        section_separators = "",
+        component_separators = "",
     },
 })
-
 local ls = require("luasnip")
 local _ = require("luasnip.loaders.from_vscode").lazy_load()
 
