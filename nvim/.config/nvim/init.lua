@@ -22,8 +22,6 @@ require("packer").startup(function(use)
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
     })
-    -- Tabs like any other editor
-    use("akinsho/bufferline.nvim")
     -- Auto pairs for brackets etc.
     use("windwp/nvim-autopairs")
     -- Git diffs in sign column
@@ -230,9 +228,9 @@ keymap("n", "<leader>y", '"+y', opts)
 keymap("v", "<leader>y", '"+y', opts)
 keymap("n", "<leader>Y", '"+y$', opts)
 
--- Tabs
-keymap("n", "<S-l>", ":BufferLineCycleNext<CR>", opts)
-keymap("n", "<S-h>", ":BufferLineCyclePrev<CR>", opts)
+-- Cycle buffers
+keymap("n", "<S-l>", ":bn<CR>", opts)
+keymap("n", "<S-h>", ":bp<CR>", opts)
 
 -- Window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -477,20 +475,6 @@ require("mason-lspconfig").setup({
 require("nvim-autopairs").setup({
     check_ts = true, -- treesitter integration
     disable_filetype = { "TelescopePrompt" },
-})
-
-require("bufferline").setup({
-    options = {
-        diagnostics = "nvim_lsp",
-        offsets = {
-            {
-                filetype = "NvimTree",
-                text = "File Explorer",
-                highlight = "Directory",
-                text_align = "left",
-            },
-        },
-    },
 })
 
 -- Gruvbox
