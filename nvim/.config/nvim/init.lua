@@ -238,6 +238,10 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- Center cursor when going up/down
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
+
 -- Telescope
 keymap("n", "<C-p>", "<cmd>Telescope git_files<CR>", opts)
 keymap("n", "<leader>tf", "<cmd>Telescope find_files<CR>", opts)
@@ -270,6 +274,10 @@ keymap("n", "<leader>gD", ":DiffviewOpen main<CR>", opts)
 keymap("n", "<leader>se", ":setlocal spell! spelllang=en_us<CR>", opts)
 keymap("n", "<leader>ss", ":setlocal spell! spelllang=sv<CR>", opts)
 keymap("n", "<leader>sf", ":setlocal spell! spelllang=fr<CR>", opts)
+
+-- Remap for dealing with word wrap
+keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -------------------------------------------------
 -- Plugin setups
@@ -441,7 +449,8 @@ lsp_setup_opts["pyright"] = {
     },
 }
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 for server, settings in pairs(lsp_setup_opts) do
     require("lspconfig")[server].setup({
         on_attach = on_attach,
