@@ -3,11 +3,11 @@
     // "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
+    "spacing": 3, // Gaps between modules (3px)
     // Choose the order of the modules
     "modules-left": ["wlr/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "backlight", "hyprland/language", "battery", "clock", "tray"],
+    "modules-right": ["custom/weather", "custom/updates", "network", "backlight", "pulseaudio", "hyprland/language", "battery", "clock", "tray"],
     // Modules configuration
     "wlr/workspaces": {
         "on-click": "activate",
@@ -42,13 +42,12 @@
             "warning": 30,
             "critical": 15
         },
+        "full-at": 96,
         "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""]
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
@@ -57,7 +56,8 @@
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -82,5 +82,18 @@
         "format": "{} ",
         "format-en": "en",
         "format-fi": "fi"
+    },
+    "hyprland/window": {
+        "max-length": 50
+    },
+    "custom/weather": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/openweather.sh",
+        "interval": 600
+    },
+    "custom/updates": {
+        "format": "{} ",
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "interval": 600
     }
 }

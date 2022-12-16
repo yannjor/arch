@@ -64,10 +64,12 @@ window#waybar.chromium {
 #network,
 #pulseaudio,
 #language,
+#custom-weather,
+#custom-updates,
 #tray {
-    padding: 0 12px;
-    border-radius: 5px;
-    margin-bottom: 3px;
+    padding: 0 10px;
+    border-radius: 3px;
+    margin-bottom: 5px;
     color: #1d2021;
 }
 
@@ -75,7 +77,6 @@ window#waybar.chromium {
 #workspaces {
     margin: 0 4px;
 }
-
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
     margin-left: 0;
@@ -94,11 +95,6 @@ window#waybar.chromium {
     background-color: #b8bb26;
 }
 
-#battery.charging, #battery.plugged {
-    color: #ebdbb2;
-    background-color: #26A65B;
-}
-
 @keyframes blink {
     to {
         background-color: #ffffff;
@@ -107,8 +103,7 @@ window#waybar.chromium {
 }
 
 #battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
+    background-color: #cc241d;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -142,16 +137,22 @@ label:focus {
 
 #pulseaudio {
     background-color: #689d6a;
-    color: #000000;
 }
 
 #pulseaudio.muted {
     background-color: #cc241d;
-    color: #2a5c45;
 }
 
 #language {
-    background-color: #83a598
+    background-color: #83a598;
+}
+
+#custom-weather {
+    background-color: #ebdbb2;
+}
+
+#custom-updates {
+    background-color: #fabd2f;
 }
 
 #tray {
