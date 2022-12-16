@@ -1,19 +1,6 @@
 #!/bin/bash
-# Postinstall script. Configures zsh, neovim and GNOME
+# Configures GNOME
 
-echo "Configuring ZSH"
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --skip-chsh --keep-zshrc
-# Install plugins
-git clone https://github.com/zdharma/fast-syntax-highlighting.git \
-    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/fast-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions.git \
-    "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-git clone https://github.com/spaceship-prompt/spaceship-prompt.git \
-    "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/themes/spaceship-prompt --depth=1
-ln -s "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/themes/spaceship-prompt/spaceship.zsh-theme "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/themes/spaceship.zsh-theme
-
-### GNOME settings
 if [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
     echo "Configuring GNOME"
     gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
