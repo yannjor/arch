@@ -226,13 +226,9 @@ keymap("n", "<Leader>o", "o<Esc>", opts)
 keymap("n", "<Leader>O", "O<Esc>", opts)
 
 -- Copy-paste
-keymap("n", "<leader>p", '"+p', opts)
-keymap("v", "<leader>p", '"+p', opts)
-keymap("n", "<leader>P", '"+P', opts)
-keymap("v", "<leader>P", '"+P', opts)
-keymap("n", "<leader>y", '"+y', opts)
-keymap("v", "<leader>y", '"+y', opts)
-keymap("n", "<leader>Y", '"+y$', opts)
+keymap("x", "<leader>p", '"_dP')
+keymap({ "n", "v" }, "<leader>y", '"+y', opts)
+keymap("n", "<leader>Y", '"+Y', opts)
 
 -- Cycle buffers
 keymap("n", "<S-l>", ":bn<CR>", opts)
@@ -248,11 +244,20 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
 
+-- Replace stuff
+keymap("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+
+-- Make file executable
+keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", opts)
+
 -- Telescope
-keymap("n", "<C-p>", "<cmd>Telescope git_files<CR>", opts)
-keymap("n", "<leader>tf", "<cmd>Telescope find_files<CR>", opts)
-keymap("n", "<leader>tg", "<cmd>Telescope live_grep<CR>", opts)
-keymap("n", "<leader>tb", "<cmd>Telescope buffers<CR>", opts)
+local builtin = require("telescope.builtin")
+keymap("n", "<C-p>", builtin.git_files, opts)
+keymap("n", "<leader>sf", builtin.find_files, opts)
+keymap("n", "<leader>sh", builtin.help_tags, opts)
+keymap("n", "<leader>sg", builtin.live_grep, opts)
+keymap("n", "<leader><space>", builtin.buffers, opts)
+keymap("n", "<leader>?", builtin.oldfiles, opts)
 
 --Surround
 keymap("v", "<leader>'", "<Esc>`>a'<Esc>`<i'<Esc>", opts)
@@ -277,9 +282,8 @@ keymap("n", "<leader>gd", ":DiffviewOpen<CR>", opts)
 keymap("n", "<leader>gD", ":DiffviewOpen main<CR>", opts)
 
 -- Spell-check
-keymap("n", "<leader>se", ":setlocal spell! spelllang=en_us<CR>", opts)
-keymap("n", "<leader>ss", ":setlocal spell! spelllang=sv<CR>", opts)
-keymap("n", "<leader>sf", ":setlocal spell! spelllang=fr<CR>", opts)
+keymap("n", "<leader>spe", ":setlocal spell! spelllang=en_us<CR>", opts)
+keymap("n", "<leader>sps", ":setlocal spell! spelllang=sv<CR>", opts)
 
 -- Remap for dealing with word wrap
 keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
