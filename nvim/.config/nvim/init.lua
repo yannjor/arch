@@ -42,22 +42,28 @@ require("packer").startup(function(use)
     -------------------------
     -- LSP & Completion
     -------------------------
-    use("neovim/nvim-lspconfig")
-    use("williamboman/mason.nvim")
-    use("williamboman/mason-lspconfig.nvim")
-    use("nvim-lua/lsp_extensions.nvim")
-    use("onsails/lspkind-nvim")
-    use("hrsh7th/cmp-nvim-lsp")
-    use("hrsh7th/cmp-buffer")
-    use("hrsh7th/cmp-path")
-    use("hrsh7th/nvim-cmp")
-    use("L3MON4D3/LuaSnip")
-    use("saadparwaiz1/cmp_luasnip")
-    use("ray-x/lsp_signature.nvim")
-    use("jose-elias-alvarez/null-ls.nvim")
-    -- Extra snippets
-    use("rafamadriz/friendly-snippets")
+    use({
+        "VonHeikemen/lsp-zero.nvim",
+        requires = {
+            -- LSP Support
+            { "neovim/nvim-lspconfig" },
+            { "williamboman/mason.nvim" },
+            { "williamboman/mason-lspconfig.nvim" },
 
+            -- Autocompletion
+            { "hrsh7th/nvim-cmp" },
+            { "hrsh7th/cmp-buffer" },
+            { "hrsh7th/cmp-path" },
+            { "saadparwaiz1/cmp_luasnip" },
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-nvim-lua" },
+
+            -- Snippets
+            { "L3MON4D3/LuaSnip" },
+            { "rafamadriz/friendly-snippets" },
+        },
+    })
+    use("jose-elias-alvarez/null-ls.nvim")
     -------------------------
     -- Visual enhancements & themes
     -------------------------
@@ -282,204 +288,54 @@ keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 -------------------------------------------------
 -- Plugin setups
 -------------------------------------------------
+local lsp = require("lsp-zero")
+lsp.preset("recommended")
 
-require("impatient")
+lsp.on_attach(function(client, bufnr)
+    local lsp_keymap_opts = { buffer = bufnr, remap = false }
+    local bind = vim.keymap.set
+    bind("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", lsp_keymap_opts)
+    bind("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", lsp_keymap_opts)
+    bind("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", lsp_keymap_opts)
+    bind("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", lsp_keymap_opts)
+end)
 
-local lspkind = require("lspkind")
-lspkind.init()
-
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-
-cmp.setup({
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end,
-    },
-    completion = {
-        completeopt = "menu,menuone,noinsert",
-    },
-    mapping = {
-        -- Accept currently selected item.
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        -- Close completion menu
-        ["<C-e>"] = cmp.mapping.close(),
-        -- Open completion menu
-        ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        -- If you want tab completion :'(
-        --  First you have to just promise to read `:help ins-completion`.
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expandable() then
-                luasnip.expand()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-        }),
-    },
-    sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "buffer", keyword_length = 5 },
-        { name = "path" },
-    },
-    formatting = {
-        -- Youtube: How to set up nice formatting for your sources.
-        -- https://youtu.be/_DnmphIwnjo?t=816
-        format = lspkind.cmp_format({
-            with_text = true,
-            menu = {
-                buffer = "[Buffer]",
-                nvim_lsp = "[LSP]",
-                luasnip = "[Snippet]",
-                path = "[Path]",
-            },
-        }),
-    },
-    experimental = {
-        ghost_text = true,
-    },
+lsp.ensure_installed({
+    "bashls",
+    "clangd",
+    "pyright",
+    "rust_analyzer",
+    "sumneko_lua",
+    "tsserver",
 })
 
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
-
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-    -- Mappings.
-    local lsp_keymap_opts = { noremap = true, silent = true }
-
-    local signs = {
-        { name = "DiagnosticSignError", text = "" },
-        { name = "DiagnosticSignWarn", text = "" },
-        { name = "DiagnosticSignHint", text = "" },
-        { name = "DiagnosticSignInfo", text = "" },
-    }
-    for _, sign in ipairs(signs) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-    end
-    vim.diagnostic.config({ signs = { active = signs }, virtual_text = false })
-
-    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", lsp_keymap_opts)
-    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", lsp_keymap_opts)
-
-    local disable_formatting = {
-        "hls",
-        "html",
-        "jsonls",
-        "sumneko_lua",
-        "tsserver",
-    }
-    -- Disable formatting for certain LSPs, use null-ls instead
-    for _, c in pairs(disable_formatting) do
-        if client.name == c then
-            client.server_capabilities.document_formatting = false
-        end
-    end
-end
-
--- Optional and additional LSP setup options other than (common) on_attach, capabilities, etc.
-local lsp_setup_opts = {}
-
-lsp_setup_opts["rust_analyzer"] = {
-    ["rust-analyzer"] = {
-        checkOnSave = {
-            command = "clippy",
-        },
-        completion = {
-            autoimport = {
-                enable = true,
+lsp.use("pyright", {
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "off",
             },
         },
     },
-}
+})
 
-lsp_setup_opts["sumneko_lua"] = {
-    Lua = {
-        diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { "vim" },
+lsp.use("rust_analyzer", {
+    settings = {
+        ["rust-analyzer"] = {
+            checkOnSave = {
+                command = "clippy",
+            },
+            completion = {
+                autoimport = {
+                    enable = true,
+                },
+            },
         },
     },
-}
-
-lsp_setup_opts["pyright"] = {
-    python = {
-        analysis = {
-            typeCheckingMode = "off",
-        },
-    },
-}
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-for server, settings in pairs(lsp_setup_opts) do
-    require("lspconfig")[server].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = settings,
-    })
-end
-
-require("lspconfig").hls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-})
-require("lspconfig").cssls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-})
-require("lspconfig").tsserver.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-})
-require("lspconfig").clangd.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
 })
 
-require("mason").setup({})
-require("mason-lspconfig").setup({
-    ensure_installed = { "sumneko_lua", "pyright", "rust_analyzer" },
-})
+lsp.nvim_workspace()
+lsp.setup()
 
 require("nvim-autopairs").setup({
     check_ts = true, -- treesitter integration
