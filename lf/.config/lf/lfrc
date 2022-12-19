@@ -55,6 +55,7 @@ map O $mimeopen --ask $f
 map <enter> open $f
 map D delete
 map E extract
+map <c-n> push :mkdir<space>
 
 map A rename # at the very end
 map c push A<c-u> # new rename
@@ -106,6 +107,8 @@ cmd delete ${{
 # use "<delete>" key for either "trash" or "delete" command
 # map <delete> trash
 # map <delete> delete
+
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)

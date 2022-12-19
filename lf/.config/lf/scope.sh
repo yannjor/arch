@@ -6,22 +6,22 @@ set -C -f
 IFS="$(printf '%b_' '\n')"
 IFS="${IFS%_}"
 
-image() {
-    if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && command -V ueberzug > /dev/null 2>&1; then
-        printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y": "%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' "$4" "$5" "$(($2 - 1))" "$(($3 - 1))" "$1" > "$FIFO_UEBERZUG"
-    else
-        mediainfo "$1"
+check_cache() {
+    if [ ! -d "$HOME/.cache/lf" ]; then
+        mkdir -p "$HOME/.cache/lf"
     fi
 }
 
-ifub() {
-    [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && command -V ueberzug > /dev/null 2>&1
+image() {
+    kitty +kitten icat --transfer-mode file --place "$3x$2@$4x$5" "$1"
 }
 
-# Note that the cache file name is a function of file information, meaning if
-# an image appears in multiple places across the machine, it will not have to
-# be regenerated once seen.
+draw_clear() {
+    kitty +kitten icat --transfer-mode file --clear
+}
 
+check_cache
+draw_clear
 case "$(file --dereference --brief --mime-type -- "$1")" in
     image/*) image "$1" "$2" "$3" "$4" "$5" ;;
     text/troff) man ./ "$1" | col -b ;;
@@ -38,7 +38,5 @@ case "$(file --dereference --brief --mime-type -- "$1")" in
         [ ! -f "$CACHE.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
         image "$CACHE.jpg" "$2" "$3" "$4" "$5"
         ;;
-    *opendocument*) odt2txt "$1" ;;
-    application/pgp-encrypted) gpg -d -- "$1" ;;
 esac
 exit 1
