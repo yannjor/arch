@@ -158,9 +158,6 @@ o.relativenumber = true
 -- Show column
 o.colorcolumn = "80"
 
--- Wrap at 80
-o.textwidth = 80
-
 -- Prevent buffer moving when adding/deleting sign.
 o.signcolumn = "yes"
 
@@ -244,9 +241,6 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
 
--- Replace stuff
-keymap("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
-
 -- Make file executable
 keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", opts)
 
@@ -309,7 +303,7 @@ lsp.ensure_installed({
     "clangd",
     "pyright",
     "rust_analyzer",
-    "sumneko_lua",
+    "lua_ls",
     "tsserver",
 })
 
@@ -387,7 +381,6 @@ ls.config.set_config({
     -- This tells LuaSnip to remember to keep around the last snippet.
     -- You can jump back into it even if you move outside of the selection
     history = true,
-
     -- This one is cool cause if you have dynamic snippets, it updates as you type!
     updateevents = "TextChanged,TextChangedI",
 })
@@ -416,7 +409,7 @@ local sources = {
 
     -- Formatting
     formatting.prettier.with({
-        extra_args = { "--tab-width", "2" },
+        extra_args = { "--tab-width", "4" },
     }),
     formatting.autopep8,
     formatting.shfmt.with({
