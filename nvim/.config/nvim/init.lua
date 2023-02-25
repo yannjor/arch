@@ -1,108 +1,97 @@
--- Install packer automatically
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    is_bootstrap = true
-    vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-    vim.cmd([[packadd packer.nvim]])
+-- Install lazy automatically
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
+vim.opt.rtp:prepend(lazypath)
 
-require("packer").startup(function(use)
-    -- Packer can manage itself
-    use("wbthomason/packer.nvim")
+local plugins = {
     -------------------------
     -- General enhancements
     -------------------------
     -- Filetree
-    use("kyazdani42/nvim-tree.lua")
+    "kyazdani42/nvim-tree.lua",
     -- Commenting
-    use("numToStr/Comment.nvim")
+    "numToStr/Comment.nvim",
     -- Better syntax highlighting
-    use({
-        "nvim-treesitter/nvim-treesitter",
-        run = ":TSUpdate",
-    })
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     -- Auto pairs for brackets etc.
-    use("windwp/nvim-autopairs")
+    "windwp/nvim-autopairs",
     -- Git diffs in sign column
-    use("lewis6991/gitsigns.nvim")
+    "lewis6991/gitsigns.nvim",
     -- Telescope (fuzzy finder)
-    use("nvim-lua/popup.nvim")
-    use("nvim-lua/plenary.nvim")
-    use("nvim-telescope/telescope.nvim")
+    "nvim-lua/popup.nvim",
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope.nvim",
     -- Quickly toggle terminal while editing
-    use("akinsho/toggleterm.nvim")
+    "akinsho/toggleterm.nvim",
     -- Git UI
-    use("TimUntersberger/neogit")
-    use("sindrets/diffview.nvim")
+    "TimUntersberger/neogit",
+    "sindrets/diffview.nvim",
     -- Language support
-    use("lervag/vimtex")
+    "lervag/vimtex",
     -- Faster startup
-    use("lewis6991/impatient.nvim")
+    "lewis6991/impatient.nvim",
     -------------------------
     -- LSP & Completion
     -------------------------
-    use({
+    {
         "VonHeikemen/lsp-zero.nvim",
-        requires = {
+        dependencies = {
             -- LSP Support
-            { "neovim/nvim-lspconfig" },
-            { "williamboman/mason.nvim" },
-            { "williamboman/mason-lspconfig.nvim" },
-
+            "neovim/nvim-lspconfig",
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
             -- Autocompletion
-            { "hrsh7th/nvim-cmp" },
-            { "hrsh7th/cmp-buffer" },
-            { "hrsh7th/cmp-path" },
-            { "saadparwaiz1/cmp_luasnip" },
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "hrsh7th/cmp-nvim-lua" },
-
+            "hrsh7th/nvim-cmp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lua",
             -- Snippets
-            { "L3MON4D3/LuaSnip" },
-            { "rafamadriz/friendly-snippets" },
+            "L3MON4D3/LuaSnip",
+            "rafamadriz/friendly-snippets",
         },
-    })
-    use("jose-elias-alvarez/null-ls.nvim")
+    },
+    "jose-elias-alvarez/null-ls.nvim",
     -------------------------
     -- Visual enhancements & themes
     -------------------------
     -- Status line
-    use("nvim-lualine/lualine.nvim")
+    "nvim-lualine/lualine.nvim",
     -- Standalone UI for nvim-lsp progress
-    use("j-hui/fidget.nvim")
+    "j-hui/fidget.nvim",
     -- Icons
-    use("kyazdani42/nvim-web-devicons")
+    "kyazdani42/nvim-web-devicons",
     -- Gruvbox
-    use("morhetz/gruvbox")
+    "morhetz/gruvbox",
     -- Modified gruvbox
-    use("sainnhe/gruvbox-material")
+    "sainnhe/gruvbox-material",
     -- if gruvbox and tokyonight had a baby
-    use("rebelot/kanagawa.nvim")
+    "rebelot/kanagawa.nvim",
     -- Github theme
-    use("projekt0n/github-nvim-theme")
+    "projekt0n/github-nvim-theme",
     -- Nightfox theme
-    use("EdenEast/nightfox.nvim")
+    "EdenEast/nightfox.nvim",
     -- Vscode theme
-    use("Mofiqul/vscode.nvim")
+    "Mofiqul/vscode.nvim",
     -- Material theme
-    use("marko-cerovac/material.nvim")
+    "marko-cerovac/material.nvim",
     -- Catppuccin
-    use({ "catppuccin/nvim", as = "catppuccin" })
+    { "catppuccin/nvim", name = "catppuccin" },
+}
 
-    if is_bootstrap then
-        require("packer").sync()
-    end
-end)
+local opts = {}
 
-if is_bootstrap then
-    print("==================================")
-    print("    Plugins are being installed")
-    print("    Wait until Packer completes,")
-    print("       then restart nvim")
-    print("==================================")
-    return
-end
+require("lazy").setup(plugins, opts)
 
 -------------------------------------------------
 -- Settings
@@ -225,7 +214,7 @@ keymap("n", "<Leader>O", "O<Esc>", opts)
 -- Copy-paste
 keymap("x", "<leader>p", '"_dP')
 keymap({ "n", "v" }, "<leader>y", '"+y', opts)
-keymap("n", "<leader>Y", '"+Y', opts)
+keymap("n", "<leader>Y", '"+y$', opts)
 
 -- Cycle buffers
 keymap("n", "<S-l>", ":bn<CR>", opts)
