@@ -17,8 +17,8 @@ get_icon() {
         10n) icon="" ;; # Rain night
         11d) icon="" ;; # Thunderstorm day.
         11n) icon="" ;; # Thunderstorm night
-        13d) icon="ﰕ" ;; # Snow day. Snowflake alternative: 
-        13n) icon="ﰕ" ;; # Snow night. Snowflake alternative: 
+        13d) icon="" ;; # Snow day. Snowflake alternative: 
+        13n) icon="" ;; # Snow night. Snowflake alternative: 
         50d) icon="" ;; # Mist day.
         50n) icon="" ;; # Mist night.ather-icons
         *) icon="" ;;

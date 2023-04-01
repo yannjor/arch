@@ -1,11 +1,10 @@
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    "layer": "top", // Waybar at top layer
     "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 3, // Gaps between modules (3px)
     // Choose the order of the modules
-    "modules-left": ["wlr/workspaces"],
+    "modules-left": ["wlr/workspaces", "custom/spotify"],
     "modules-center": ["hyprland/window"],
     "modules-right": ["custom/weather", "custom/updates", "network", "backlight", "pulseaudio", "hyprland/language", "battery", "clock", "tray"],
     // Modules configuration
@@ -15,13 +14,12 @@
         "all-outputs": true,
     },
     "tray": {
-        // "icon-size": 21,
         "spacing": 10
     },
     "clock": {
         "format": "{:%H:%M} ",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-alt": "{:%d/%m/%Y %H:%M} "
     },
     "cpu": {
         "format": "{usage}% ",
@@ -51,12 +49,12 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} 直",
-        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-wifi": "直",
+        "format-ethernet": "",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "format-alt": "{essid} 直",
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
@@ -95,5 +93,12 @@
         "format": "{} ",
         "exec": "~/.config/waybar/scripts/updates.sh",
         "interval": 600
+    },
+    "custom/spotify": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/spotify.py",
+        "interval": 3,
+        "on-click": "playerctl --player=spotify play-pause",
+        "on-click-right": "playerctl --player=spotify next"
     }
 }
