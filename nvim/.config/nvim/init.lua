@@ -72,19 +72,11 @@ local plugins = {
     -- Icons
     "kyazdani42/nvim-web-devicons",
     -- Gruvbox
-    "morhetz/gruvbox",
-    -- Modified gruvbox
-    "sainnhe/gruvbox-material",
-    -- if gruvbox and tokyonight had a baby
-    "rebelot/kanagawa.nvim",
+    "ellisonleao/gruvbox.nvim",
     -- Github theme
     "projekt0n/github-nvim-theme",
-    -- Nightfox theme
-    "EdenEast/nightfox.nvim",
     -- Vscode theme
     "Mofiqul/vscode.nvim",
-    -- Material theme
-    "marko-cerovac/material.nvim",
     -- Catppuccin
     { "catppuccin/nvim", name = "catppuccin" },
 }
@@ -329,16 +321,10 @@ require("nvim-autopairs").setup({
     disable_filetype = { "TelescopePrompt" },
 })
 
--- Gruvbox
-vim.cmd([[
-  let g:gruvbox_material_background = 'hard'
-  colorscheme gruvbox-material
-]])
-
--- require("catppuccin").setup({})
--- vim.cmd([[
---     colorscheme catppuccin
--- ]])
+require("gruvbox").setup({
+    contrast = "hard",
+})
+vim.cmd([[colorscheme gruvbox]])
 
 require("Comment").setup({})
 
@@ -356,8 +342,7 @@ require("gitsigns").setup({
 
 require("lualine").setup({
     options = {
-        theme = "gruvbox-material",
-        -- theme = "catppuccin",
+        theme = "gruvbox",
         icons_enabled = true,
         section_separators = "",
         component_separators = "",
