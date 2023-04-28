@@ -1,4 +1,3 @@
-export ZSH="$HOME/.oh-my-zsh"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.bin"
 # Default programs

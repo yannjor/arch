@@ -1,11 +1,17 @@
-# Plugins
-plugins=(fast-syntax-highlighting zsh-autosuggestions tmux)
+# Created by Zap installer
+[ -f "$HOME/.local/share/zap/zap.zsh" ] && source "$HOME/.local/share/zap/zap.zsh"
 
-# tmux
-# ZSH_TMUX_AUTOSTART=true
+plug "zsh-users/zsh-autosuggestions"
+plug "zap-zsh/supercharge"
+plug "zsh-users/zsh-syntax-highlighting"
+plug "spaceship-prompt/spaceship-prompt"
+plug "/usr/share/autojump/autojump.zsh"
+
+bindkey "^ " autosuggest-accept
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
 
 # Spaceship config
-ZSH_THEME="spaceship"
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   host          # Hostname section
@@ -16,7 +22,6 @@ SPACESHIP_PROMPT_ORDER=(
   exec_time     # Execution time
   line_sep      # Line break
   battery       # Battery level and status
-  vi_mode       # Vi-mode indicator
   exit_code     # Exit code section
   char          # Prompt character
 )
@@ -35,11 +40,10 @@ SPACESHIP_DIR_TRUNC=2
 SPACESHIP_GIT_STATUS_SHOW="false"
 SPACESHIP_GIT_PREFIX=""
 
-source $ZSH/oh-my-zsh.sh
-
 # ALIASES
 alias cat="bat"
 alias ls="exa --icons"
+alias l="exa -lag --icons"
 alias gs="git status"
 alias gl="git log"
 alias gc="git clone"
@@ -47,12 +51,8 @@ alias gp="git push"
 alias gd="git diff"
 alias ga="git add -A"
 alias vim="nvim"
-alias vi="nvim"
-alias v="nvim"
 alias cl="clear"
-alias lf="~/.config/lf/lfub.sh"
-alias pc="pokemon-colorscripts"
 alias cal="cal -m"
 
 # Display random pokemon :)
-krabby random -i 1-5 --no-gmax
+krabby random 1-5 --no-gmax
