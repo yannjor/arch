@@ -5,7 +5,9 @@ plug "zsh-users/zsh-autosuggestions"
 plug "zap-zsh/supercharge"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "spaceship-prompt/spaceship-prompt"
-plug "/usr/share/autojump/autojump.zsh"
+plug "hlissner/zsh-autopair"
+plug "zap-zsh/vim"
+plug "chivalryq/zsh-autojump"
 
 bindkey "^ " autosuggest-accept
 bindkey "^[[A" up-line-or-beginning-search
