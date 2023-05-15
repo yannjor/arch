@@ -316,6 +316,14 @@ lsp.use("rust_analyzer", {
 lsp.nvim_workspace()
 lsp.setup()
 
+local cmp = require("cmp")
+cmp.setup({
+    mapping = {
+        -- `Enter` key to confirm completion
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    },
+})
+
 require("nvim-autopairs").setup({
     check_ts = true, -- treesitter integration
     disable_filetype = { "TelescopePrompt" },
