@@ -42,37 +42,31 @@ local plugins = {
     -------------------------
     -- LSP & Completion
     -------------------------
-    {
-        "VonHeikemen/lsp-zero.nvim",
-        dependencies = {
-            -- LSP Support
-            "neovim/nvim-lspconfig",
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            -- Autocompletion
-            "hrsh7th/nvim-cmp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
-            -- Snippets
-            "L3MON4D3/LuaSnip",
-            "rafamadriz/friendly-snippets",
-        },
-    },
-    "jose-elias-alvarez/null-ls.nvim",
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
+    "neovim/nvim-lspconfig",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-nvim-lua",
+    "hrsh7th/cmp-path",
+    "hrsh7th/nvim-cmp",
+    "rafamadriz/friendly-snippets",
+    "L3MON4D3/LuaSnip",
+    "nvimtools/none-ls.nvim",
     -------------------------
     -- Visual enhancements & themes
     -------------------------
     -- Status line
     "nvim-lualine/lualine.nvim",
     -- Standalone UI for nvim-lsp progress
-    "j-hui/fidget.nvim",
+    { "j-hui/fidget.nvim", tag = "legacy" },
     -- Icons
     "kyazdani42/nvim-web-devicons",
     -- Gruvbox
     "ellisonleao/gruvbox.nvim",
+    -- Modified gruvbox
+    "sainnhe/gruvbox-material",
     -- Github theme
     "projekt0n/github-nvim-theme",
     -- Vscode theme
@@ -179,6 +173,9 @@ o.undofile = true
 -- Don't continue comments when using o/O
 o.formatoptions:remove("o")
 
+-- Preselect first completion
+o.completeopt = { "menu", "menuone", "noselect" }
+
 -- Plugin settings
 g.vimtex_view_method = "zathura"
 g.vimtex_quickfix_mode = 0
@@ -279,15 +276,6 @@ lsp.on_attach(function(client, bufnr)
     bind("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", lsp_keymap_opts)
 end)
 
-lsp.ensure_installed({
-    "bashls",
-    "clangd",
-    "pyright",
-    "rust_analyzer",
-    "lua_ls",
-    "tsserver",
-})
-
 lsp.use("pyright", {
     settings = {
         python = {
@@ -313,15 +301,54 @@ lsp.use("rust_analyzer", {
     },
 })
 
-lsp.nvim_workspace()
-lsp.setup()
+require("mason").setup({})
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "bashls",
+        "clangd",
+        "pyright",
+        "rust_analyzer",
+        "lua_ls",
+        "tsserver",
+    },
+    handlers = {
+        lsp.default_setup,
+    },
+})
+
+lsp.set_sign_icons({
+    error = "✘",
+    warn = "▲",
+    hint = "⚑",
+    info = "",
+})
 
 local cmp = require("cmp")
+local cmp_action = require("lsp-zero").cmp_action()
+local cmp_format = require("lsp-zero").cmp_format()
+
 cmp.setup({
+    -- Preselect first completion
+    preselect = "item",
+    completion = {
+        completeopt = "menu,menuone,noinsert",
+    },
     mapping = {
         -- `Enter` key to confirm completion
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        -- Tab complete
+        ["<Tab>"] = cmp_action.tab_complete(),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
     },
+    sources = {
+        { name = "nvim_lua" },
+        { name = "nvim_lsp" },
+        { name = "path" },
+        { name = "buffer", keyword_length = 3 },
+        { name = "luasnip", keyword_length = 2 },
+    },
+    -- Show completion source
+    formatting = cmp_format,
 })
 
 require("nvim-autopairs").setup({
@@ -332,7 +359,11 @@ require("nvim-autopairs").setup({
 require("gruvbox").setup({
     contrast = "hard",
 })
-vim.cmd([[colorscheme gruvbox]])
+
+vim.cmd([[
+  let g:gruvbox_material_background = 'hard'
+  colorscheme gruvbox-material
+]])
 
 require("Comment").setup({})
 
@@ -350,7 +381,7 @@ require("gitsigns").setup({
 
 require("lualine").setup({
     options = {
-        theme = "gruvbox",
+        theme = "gruvbox-material",
         icons_enabled = true,
         section_separators = "",
         component_separators = "",
