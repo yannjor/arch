@@ -17,9 +17,9 @@ local plugins = {
     -- General enhancements
     -------------------------
     -- Filetree
-    "kyazdani42/nvim-tree.lua",
+    { "kyazdani42/nvim-tree.lua", opts = {} },
     -- Commenting
-    "numToStr/Comment.nvim",
+    { "numToStr/Comment.nvim", opts = {} },
     -- Better syntax highlighting
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     -- Auto pairs for brackets etc.
@@ -60,24 +60,18 @@ local plugins = {
     -- Status line
     "nvim-lualine/lualine.nvim",
     -- Standalone UI for nvim-lsp progress
-    { "j-hui/fidget.nvim", tag = "legacy" },
+    { "j-hui/fidget.nvim", opts = {} },
     -- Icons
     "kyazdani42/nvim-web-devicons",
-    -- Gruvbox
-    "ellisonleao/gruvbox.nvim",
     -- Modified gruvbox
     "sainnhe/gruvbox-material",
     -- Github theme
     "projekt0n/github-nvim-theme",
-    -- Vscode theme
-    "Mofiqul/vscode.nvim",
-    -- Catppuccin
-    { "catppuccin/nvim", name = "catppuccin" },
 }
 
 local opts = {}
 
-require("lazy").setup(plugins, opts)
+require("lazy").setup(plugins)
 
 -------------------------------------------------
 -- Settings
@@ -149,7 +143,7 @@ o.wildmode = "list:longest"
 -- Show whitespace characters
 o.listchars = {
     space = "⋅",
-    tab = "__",
+    tab = "» ",
     trail = "•",
     extends = "❯",
     precedes = "❮",
@@ -201,7 +195,7 @@ keymap("n", "<Leader>o", "o<Esc>", opts)
 keymap("n", "<Leader>O", "O<Esc>", opts)
 
 -- Copy-paste
-keymap("x", "<leader>p", '"_dP')
+keymap("x", "<leader>p", '"_dP', opts)
 keymap({ "n", "v" }, "<leader>y", '"+y', opts)
 keymap("n", "<leader>Y", '"+y$', opts)
 
@@ -228,13 +222,20 @@ keymap("n", "<C-p>", builtin.git_files, opts)
 keymap("n", "<leader>sf", builtin.find_files, opts)
 keymap("n", "<leader>sh", builtin.help_tags, opts)
 keymap("n", "<leader>sg", builtin.live_grep, opts)
+keymap("n", "<leader>sd", builtin.diagnostics, opts)
 keymap("n", "<leader><space>", builtin.buffers, opts)
-keymap("n", "<leader>?", builtin.oldfiles, opts)
+keymap("n", "<leader>s.", builtin.oldfiles, opts)
+keymap("n", "<leader>/", function()
+    builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+        winblend = 10,
+        previewer = false,
+    }))
+end, opts)
 
 --Surround
 keymap("v", "<leader>'", "<Esc>`>a'<Esc>`<i'<Esc>", opts)
 keymap("v", '<leader>"', '<Esc>`>a"<Esc>`<i"<Esc>', opts)
-keymap("v", "<leader>(", "<Esc>`>a,opts)<Esc>`<i(<Esc>")
+keymap("v", "<leader>(", "<Esc>`>a)<Esc>`<i(<Esc>", opts)
 keymap("v", "<leader>[", "<Esc>`>a]<Esc>`<i[<Esc>", opts)
 keymap("v", "<leader>{", "<Esc>`>a}<Esc>`<i{<Esc>", opts)
 
@@ -271,10 +272,35 @@ lsp.on_attach(function(client, bufnr)
     local lsp_keymap_opts = { buffer = bufnr, remap = false }
     local bind = vim.keymap.set
     bind("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", lsp_keymap_opts)
+    bind("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", lsp_keymap_opts)
     bind("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", lsp_keymap_opts)
     bind("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", lsp_keymap_opts)
     bind("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", lsp_keymap_opts)
 end)
+
+lsp.use("lua_ls", {
+    settings = {
+        Lua = {
+            runtime = { version = "LuaJIT" },
+            workspace = {
+                checkThirdParty = false,
+                -- Tells lua_ls where to find all the Lua files that you have loaded
+                -- for your neovim configuration.
+                library = {
+                    "${3rd}/luv/library",
+                    unpack(vim.api.nvim_get_runtime_file("", true)),
+                },
+                -- If lua_ls is really slow on your computer, you can try this instead:
+                -- library = { vim.env.VIMRUNTIME },
+            },
+            completion = {
+                callSnippet = "Replace",
+            },
+            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+            -- diagnostics = { disable = { 'missing-fields' } },
+        },
+    },
+})
 
 lsp.use("pyright", {
     settings = {
@@ -356,18 +382,10 @@ require("nvim-autopairs").setup({
     disable_filetype = { "TelescopePrompt" },
 })
 
-require("gruvbox").setup({
-    contrast = "hard",
-})
-
 vim.cmd([[
   let g:gruvbox_material_background = 'hard'
   colorscheme gruvbox-material
 ]])
-
-require("Comment").setup({})
-
-require("fidget").setup({})
 
 require("gitsigns").setup({
     signs = {
@@ -424,8 +442,6 @@ local sources = {
 
 null_ls.setup({ sources = sources })
 
-require("nvim-tree").setup({})
-
 require("toggleterm").setup({
     -- size can be a number or function which is passed the current terminal
     open_mapping = [[<c-\>]],
@@ -449,7 +465,10 @@ require("toggleterm").setup({
     },
 })
 
+---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
+    ensure_installed = { "bash", "python", "lua", "html", "javascript", "c", "rust" },
+    auto_install = true,
     highlight = {
         enable = true,
     },
