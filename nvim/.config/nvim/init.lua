@@ -17,7 +17,7 @@ local plugins = {
     -- General enhancements
     -------------------------
     -- Filetree
-    { "kyazdani42/nvim-tree.lua", opts = {} },
+    { "nvim-tree/nvim-tree.lua", opts = {} },
     -- Commenting
     { "numToStr/Comment.nvim", opts = {} },
     -- Better syntax highlighting
@@ -33,7 +33,7 @@ local plugins = {
     -- Quickly toggle terminal while editing
     "akinsho/toggleterm.nvim",
     -- Git UI
-    "TimUntersberger/neogit",
+    "NeogitOrg/neogit",
     "sindrets/diffview.nvim",
     -- Language support
     "lervag/vimtex",
