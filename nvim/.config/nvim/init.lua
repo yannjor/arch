@@ -44,7 +44,7 @@ local plugins = {
     -------------------------
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
+    { "VonHeikemen/lsp-zero.nvim", branch = "v4.x" },
     "neovim/nvim-lspconfig",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-nvim-lsp",
@@ -68,8 +68,6 @@ local plugins = {
     -- Github theme
     "projekt0n/github-nvim-theme",
 }
-
-local opts = {}
 
 require("lazy").setup(plugins)
 
@@ -266,17 +264,24 @@ keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 -- Plugin setups
 -------------------------------------------------
 local lsp = require("lsp-zero")
-lsp.preset("recommended")
 
-lsp.on_attach(function(client, bufnr)
+local lsp_attach = function(client, bufnr)
     local lsp_keymap_opts = { buffer = bufnr, remap = false }
     local bind = vim.keymap.set
     bind("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", lsp_keymap_opts)
+    bind("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", lsp_keymap_opts)
     bind("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", lsp_keymap_opts)
     bind("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", lsp_keymap_opts)
     bind("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", lsp_keymap_opts)
     bind("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", lsp_keymap_opts)
-end)
+end
+
+lsp.extend_lspconfig({
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    lsp_attach = lsp_attach,
+    float_border = "rounded",
+    sign_text = true,
+})
 
 lsp.use("lua_ls", {
     settings = {
