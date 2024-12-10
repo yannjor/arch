@@ -27,7 +27,6 @@ local plugins = {
     -- Git diffs in sign column
     "lewis6991/gitsigns.nvim",
     -- Telescope (fuzzy finder)
-    "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
     -- Quickly toggle terminal while editing
@@ -35,16 +34,11 @@ local plugins = {
     -- Git UI
     "NeogitOrg/neogit",
     "sindrets/diffview.nvim",
-    -- Language support
-    "lervag/vimtex",
-    -- Faster startup
-    "lewis6991/impatient.nvim",
     -------------------------
     -- LSP & Completion
     -------------------------
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    { "VonHeikemen/lsp-zero.nvim", branch = "v4.x" },
     "neovim/nvim-lspconfig",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-nvim-lsp",
@@ -54,6 +48,17 @@ local plugins = {
     "rafamadriz/friendly-snippets",
     "L3MON4D3/LuaSnip",
     "nvimtools/none-ls.nvim",
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
     -------------------------
     -- Visual enhancements & themes
     -------------------------
@@ -62,7 +67,7 @@ local plugins = {
     -- Standalone UI for nvim-lsp progress
     { "j-hui/fidget.nvim", opts = {} },
     -- Icons
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
     -- Modified gruvbox
     "sainnhe/gruvbox-material",
     -- Github theme
@@ -240,11 +245,6 @@ keymap("v", "<leader>{", "<Esc>`>a}<Esc>`<i{<Esc>", opts)
 -- NvimTree
 keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
 
---Vimtex
-keymap("n", "<leader>ll", ":VimtexCompile<CR>", opts)
-keymap("n", "<leader>lv", ":VimtexView<CR>", opts)
-keymap("n", "<leader>lc", ":VimtexClean<CR>", opts)
-
 -- Neogit & Diffview
 keymap("n", "<leader>gg", ":Neogit<CR>", opts)
 keymap("n", "<leader>gl", ":Neogit log<CR>", opts)
@@ -263,51 +263,27 @@ keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 -------------------------------------------------
 -- Plugin setups
 -------------------------------------------------
-local lsp = require("lsp-zero")
+local lspconfig_defaults = require("lspconfig").util.default_config
+lspconfig_defaults.capabilities =
+    vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-local lsp_attach = function(client, bufnr)
-    local lsp_keymap_opts = { buffer = bufnr, remap = false }
-    local bind = vim.keymap.set
-    bind("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", lsp_keymap_opts)
-    bind("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", lsp_keymap_opts)
-    bind("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", lsp_keymap_opts)
-    bind("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", lsp_keymap_opts)
-    bind("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", lsp_keymap_opts)
-    bind("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", lsp_keymap_opts)
-end
-
-lsp.extend_lspconfig({
-    capabilities = require("cmp_nvim_lsp").default_capabilities(),
-    lsp_attach = lsp_attach,
-    float_border = "rounded",
-    sign_text = true,
+vim.api.nvim_create_autocmd("LspAttach", {
+    desc = "LSP actions",
+    callback = function(event)
+        local lsp_keymap_opts = { buffer = event.buf }
+        local bind = vim.keymap.set
+        bind("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", lsp_keymap_opts)
+        bind("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", lsp_keymap_opts)
+        bind("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", lsp_keymap_opts)
+        bind("n", "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", lsp_keymap_opts)
+        bind("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", lsp_keymap_opts)
+        bind("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", lsp_keymap_opts)
+        bind("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", lsp_keymap_opts)
+        bind("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", lsp_keymap_opts)
+    end,
 })
 
-lsp.use("lua_ls", {
-    settings = {
-        Lua = {
-            runtime = { version = "LuaJIT" },
-            workspace = {
-                checkThirdParty = false,
-                -- Tells lua_ls where to find all the Lua files that you have loaded
-                -- for your neovim configuration.
-                library = {
-                    "${3rd}/luv/library",
-                    unpack(vim.api.nvim_get_runtime_file("", true)),
-                },
-                -- If lua_ls is really slow on your computer, you can try this instead:
-                -- library = { vim.env.VIMRUNTIME },
-            },
-            completion = {
-                callSnippet = "Replace",
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
-        },
-    },
-})
-
-lsp.use("pyright", {
+require("lspconfig").pyright.setup({
     settings = {
         python = {
             analysis = {
@@ -317,7 +293,7 @@ lsp.use("pyright", {
     },
 })
 
-lsp.use("rust_analyzer", {
+require("lspconfig").rust_analyzer.setup({
     settings = {
         ["rust-analyzer"] = {
             checkOnSave = {
@@ -332,8 +308,9 @@ lsp.use("rust_analyzer", {
     },
 })
 
-require("mason").setup({})
+require("mason").setup()
 require("mason-lspconfig").setup({
+    automatic_installation = true,
     ensure_installed = {
         "bashls",
         "clangd",
@@ -343,34 +320,15 @@ require("mason-lspconfig").setup({
         "ts_ls",
     },
     handlers = {
-        lsp.default_setup,
+        function(server_name)
+            require("lspconfig")[server_name].setup({})
+        end,
     },
-})
-
-lsp.set_sign_icons({
-    error = "✘",
-    warn = "▲",
-    hint = "⚑",
-    info = "",
 })
 
 local cmp = require("cmp")
-local cmp_action = require("lsp-zero").cmp_action()
-local cmp_format = require("lsp-zero").cmp_format()
 
 cmp.setup({
-    -- Preselect first completion
-    preselect = "item",
-    completion = {
-        completeopt = "menu,menuone,noinsert",
-    },
-    mapping = {
-        -- `Enter` key to confirm completion
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
-        -- Tab complete
-        ["<Tab>"] = cmp_action.tab_complete(),
-        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    },
     sources = {
         { name = "nvim_lua" },
         { name = "nvim_lsp" },
@@ -378,8 +336,45 @@ cmp.setup({
         { name = "buffer", keyword_length = 3 },
         { name = "luasnip", keyword_length = 2 },
     },
-    -- Show completion source
-    formatting = cmp_format,
+    -- Preselect first completion
+    preselect = "item",
+    completion = {
+        completeopt = "menu,menuone,noinsert",
+    },
+    mapping = cmp.mapping.preset.insert({
+        -- `Enter` key to confirm completion
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        -- Tab complete
+        -- Simple tab complete
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            local col = vim.fn.col(".") - 1
+            if cmp.visible() then
+                cmp.select_next_item({ behavior = "select" })
+            elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+                fallback()
+            else
+                cmp.complete()
+            end
+        end, { "i", "s" }),
+        -- Go to previous item
+        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+    }),
+    snippet = {
+        expand = function(args)
+            vim.snippet.expand(args.body)
+        end,
+    },
+})
+
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "✘",
+            [vim.diagnostic.severity.WARN] = "▲",
+            [vim.diagnostic.severity.HINT] = "⚑",
+            [vim.diagnostic.severity.INFO] = "»",
+        },
+    },
 })
 
 require("nvim-autopairs").setup({
@@ -422,9 +417,7 @@ require("neogit").setup({
 
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
-
 local sources = {
-    -- Formatting
     formatting.prettier.with({
         extra_args = { "--tab-width", "4" },
     }),
@@ -436,7 +429,6 @@ local sources = {
         extra_args = { "--indent-type", "Spaces" },
     }),
 }
-
 null_ls.setup({ sources = sources })
 
 require("toggleterm").setup({
