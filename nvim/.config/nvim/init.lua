@@ -221,10 +221,52 @@ keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", opts)
 
 -- Telescope
 local builtin = require("telescope.builtin")
+local pickers = require("telescope.pickers")
+local make_entry = require("telescope.make_entry")
+local finders = require("telescope.finders")
+local conf = require("telescope.config").values
+
 keymap("n", "<C-p>", builtin.git_files, opts)
 keymap("n", "<leader>sf", builtin.find_files, opts)
 keymap("n", "<leader>sh", builtin.help_tags, opts)
-keymap("n", "<leader>sg", builtin.live_grep, opts)
+keymap("n", "<leader>sg", function(grep_opts)
+    grep_opts = grep_opts or {}
+    grep_opts.cwd = grep_opts.cwd and vim.fn.expand(grep_opts.cwd) or vim.loop.cwd()
+    local custom_grep = finders.new_async_job({
+        command_generator = function(prompt)
+            if not prompt or prompt == "" then
+                return nil
+            end
+            local pieces = vim.split(prompt, "  ")
+            local args = { "rg" }
+
+            if pieces[1] then
+                table.insert(args, "-e")
+                table.insert(args, pieces[1])
+            end
+            if pieces[2] then
+                table.insert(args, "-g")
+                table.insert(args, pieces[2])
+            end
+            ---@diagnostic disable-next-line: deprecated
+            return vim.tbl_flatten({
+                args,
+                { "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case" },
+            })
+        end,
+        entry_maker = make_entry.gen_from_vimgrep(grep_opts),
+        cwd = grep_opts.cwd,
+    })
+    pickers
+        .new(grep_opts, {
+            debounce = 100,
+            prompt_title = "Live MultiGrep",
+            finder = custom_grep,
+            previewer = conf.grep_previewer(grep_opts),
+            sorter = require("telescope.sorters").empty(),
+        })
+        :find()
+end, opts)
 keymap("n", "<leader>sd", builtin.diagnostics, opts)
 keymap("n", "<leader><space>", builtin.buffers, opts)
 keymap("n", "<leader>s.", builtin.oldfiles, opts)
