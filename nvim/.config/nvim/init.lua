@@ -29,6 +29,7 @@ local plugins = {
     -- Telescope (fuzzy finder)
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     -- Quickly toggle terminal while editing
     "akinsho/toggleterm.nvim",
     -- Git UI
@@ -418,6 +419,13 @@ vim.diagnostic.config({
         },
     },
 })
+
+require("telescope").setup({
+    extensions = {
+        fzf = {},
+    },
+})
+require("telescope").load_extension("fzf")
 
 require("nvim-autopairs").setup({
     check_ts = true, -- treesitter integration
