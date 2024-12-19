@@ -41,11 +41,26 @@ local plugins = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-nvim-lua",
-    "hrsh7th/cmp-path",
-    "hrsh7th/nvim-cmp",
+    {
+        "saghen/blink.cmp",
+        version = "v0.*",
+        opts = {
+            keymap = {
+                -- Simple tab complete
+                ["<CR>"] = { "accept", "fallback" },
+                ["<Tab>"] = { "select_next", "fallback" },
+                ["<S-Tab>"] = { "select_prev", "fallback" },
+            },
+            appearance = {
+                use_nvim_cmp_as_default = true,
+                nerd_font_variant = "mono",
+            },
+            sources = {
+                default = { "lsp", "path", "snippets", "buffer" },
+            },
+        },
+        opts_extend = { "sources.default" },
+    },
     "rafamadriz/friendly-snippets",
     "L3MON4D3/LuaSnip",
     "nvimtools/none-ls.nvim",
@@ -308,7 +323,7 @@ keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 -------------------------------------------------
 local lspconfig_defaults = require("lspconfig").util.default_config
 lspconfig_defaults.capabilities =
-    vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+    vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("blink.cmp").get_lsp_capabilities())
 
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
@@ -365,46 +380,6 @@ require("mason-lspconfig").setup({
     handlers = {
         function(server_name)
             require("lspconfig")[server_name].setup({})
-        end,
-    },
-})
-
-local cmp = require("cmp")
-
-cmp.setup({
-    sources = {
-        { name = "nvim_lua" },
-        { name = "nvim_lsp" },
-        { name = "path" },
-        { name = "buffer", keyword_length = 3 },
-        { name = "luasnip", keyword_length = 2 },
-    },
-    -- Preselect first completion
-    preselect = "item",
-    completion = {
-        completeopt = "menu,menuone,noinsert",
-    },
-    mapping = cmp.mapping.preset.insert({
-        -- `Enter` key to confirm completion
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
-        -- Tab complete
-        -- Simple tab complete
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            local col = vim.fn.col(".") - 1
-            if cmp.visible() then
-                cmp.select_next_item({ behavior = "select" })
-            elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-                fallback()
-            else
-                cmp.complete()
-            end
-        end, { "i", "s" }),
-        -- Go to previous item
-        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-    }),
-    snippet = {
-        expand = function(args)
-            vim.snippet.expand(args.body)
         end,
     },
 })
