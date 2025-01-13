@@ -58,6 +58,14 @@ local plugins = {
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
             },
+            signature = { enabled = true },
+            completion = {
+                menu = {
+                    auto_show = function(ctx)
+                        return ctx.mode ~= "cmdline"
+                    end,
+                },
+            },
         },
         opts_extend = { "sources.default" },
     },
